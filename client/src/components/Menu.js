@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 const menuItemClick = (e) => {
   if (e.target.classList.contains("item")) {
@@ -14,24 +14,19 @@ const menuItemClick = (e) => {
 
 function Menu() {
   return (
-    <Router>
-      <div className="ui inverted segment">
-        <div
-          className="ui inverted secondary menu "
-          onClick={(e) => menuItemClick(e)}
-        >
-          <Link className="active item" to="/">
-            Home
-          </Link>
-          <Link className="item" to="/">
-            Plans & prices{" "}
-          </Link>
-          <Link className="item right" to="/signup">
-            Sign up
-          </Link>
-        </div>
+    <div className="ui inverted segment">
+      <div className="ui inverted secondary menu ">
+        <Link className="active item" to="/">
+          Home
+        </Link>
+        <Link className="item" to="/">
+          Plans & prices{" "}
+        </Link>
+        <Link className="item right" to="/signup">
+          Sign up
+        </Link>
       </div>
-    </Router>
+    </div>
   );
 }
 
