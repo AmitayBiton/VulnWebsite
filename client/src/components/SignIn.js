@@ -6,7 +6,8 @@ const SignIn = () => {
     <div class="ui middle aligned center aligned grid stacked segment container">
       <div class="column">
         <h2 class="ui black image header">
-          <img src="assets/images/logo.png" class="image" />
+          <i class="sync alternate icon"></i>
+
           <div class="content">Log-in to your account</div>
         </h2>
         <form class="ui large form">
