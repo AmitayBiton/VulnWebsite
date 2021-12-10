@@ -9,7 +9,7 @@ const Plans = () => {
 
       <div class="row">
         <div class="column">
-          <Plan />
+          <Plan title={"Unlimited"} content={"my content"} />
         </div>
         <div class="column">
           <Plan />

@@ -1,7 +1,7 @@
 import React from "react";
 import Plans from "./Plans";
 
-const Plan = () => {
+const Main = () => {
   return (
     <div class="ui">
       <Plans />
@@ -9,4 +9,4 @@ const Plan = () => {
   );
 };
 
-export default Plan;
+export default Main;
