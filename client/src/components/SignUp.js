@@ -4,7 +4,7 @@ function SignUp() {
   return (
     <div className="ui container segment">
       <form className="ui form">
-        <h4 className="ui dividing header">Shipping Information</h4>
+        <h4 className="ui dividing header">Sign Up</h4>
         <div className="field">
           <label>Name</label>
           <div className="two fields">
@@ -45,60 +45,13 @@ function SignUp() {
         </div>
         <div className="two fields">
           <div className="field">
-            <label>State</label>
+            <label>City</label>
             <select className="ui fluid dropdown">
               <option value="">State</option>
-              <option value="AL">Alabama</option>
-              <option value="AK">Alaska</option>
-              <option value="AZ">Arizona</option>
-              <option value="AR">Arkansas</option>
-              <option value="CA">California</option>
-              <option value="CO">Colorado</option>
-              <option value="CT">Connecticut</option>
-              <option value="DE">Delaware</option>
-              <option value="DC">District Of Columbia</option>
-              <option value="FL">Florida</option>
-              <option value="GA">Georgia</option>
-              <option value="HI">Hawaii</option>
-              <option value="ID">Idaho</option>
-              <option value="IL">Illinois</option>
-              <option value="IN">Indiana</option>
-              <option value="IA">Iowa</option>
-              <option value="KS">Kansas</option>
-              <option value="KY">Kentucky</option>
-              <option value="LA">Louisiana</option>
-              <option value="ME">Maine</option>
-              <option value="MD">Maryland</option>
-              <option value="MA">Massachusetts</option>
-              <option value="MI">Michigan</option>
-              <option value="MN">Minnesota</option>
-              <option value="MS">Mississippi</option>
-              <option value="MO">Missouri</option>
-              <option value="MT">Montana</option>
-              <option value="NE">Nebraska</option>
-              <option value="NV">Nevada</option>
-              <option value="NH">New Hampshire</option>
-              <option value="NJ">New Jersey</option>
-              <option value="NM">New Mexico</option>
-              <option value="NY">New York</option>
-              <option value="NC">North Carolina</option>
-              <option value="ND">North Dakota</option>
-              <option value="OH">Ohio</option>
-              <option value="OK">Oklahoma</option>
-              <option value="OR">Oregon</option>
-              <option value="PA">Pennsylvania</option>
-              <option value="RI">Rhode Island</option>
-              <option value="SC">South Carolina</option>
-              <option value="SD">South Dakota</option>
-              <option value="TN">Tennessee</option>
-              <option value="TX">Texas</option>
-              <option value="UT">Utah</option>
-              <option value="VT">Vermont</option>
-              <option value="VA">Virginia</option>
-              <option value="WA">Washington</option>
-              <option value="WV">West Virginia</option>
-              <option value="WI">Wisconsin</option>
-              <option value="WY">Wyoming</option>
+              <option value="AL">Tel Aviv</option>
+              <option value="AK">Ramat Gan</option>
+              <option value="AZ">Givatayim</option>
+              <option value="AR">Petah Tikva</option>
             </select>
           </div>
           <div className="field">
@@ -914,78 +867,9 @@ function SignUp() {
             </div>
           </div>
         </div>
-        <h4 className="ui dividing header">Receipt</h4>
-        <div className="field">
-          <label>Send Receipt To:</label>
-          <div className="ui fluid multiple search selection dropdown">
-            <input type="hidden" name="receipt" />
-            <i className="dropdown icon"></i>
-            <div className="default text">Saved Contacts</div>
-            <div className="menu">
-              <div className="item" data-value="jenny" data-text="Jenny">
-                <img
-                  className="ui mini avatar image"
-                  src="/images/avatar/small/jenny.jpg"
-                />
-                Jenny Hess
-              </div>
-              <div className="item" data-value="elliot" data-text="Elliot">
-                <img
-                  className="ui mini avatar image"
-                  src="/images/avatar/small/elliot.jpg"
-                />
-                Elliot Fu
-              </div>
-              <div className="item" data-value="stevie" data-text="Stevie">
-                <img
-                  className="ui mini avatar image"
-                  src="/images/avatar/small/stevie.jpg"
-                />
-                Stevie Feliciano
-              </div>
-              <div
-                className="item"
-                data-value="christian"
-                data-text="Christian"
-              >
-                <img
-                  className="ui mini avatar image"
-                  src="/images/avatar/small/christian.jpg"
-                />
-                Christian
-              </div>
-              <div className="item" data-value="matt" data-text="Matt">
-                <img
-                  className="ui mini avatar image"
-                  src="/images/avatar/small/matt.jpg"
-                />
-                Matt
-              </div>
-              <div className="item" data-value="justen" data-text="Justen">
-                <img
-                  className="ui mini avatar image"
-                  src="/images/avatar/small/justen.jpg"
-                />
-                Justen Kitsune
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="ui segment">
-          <div className="field">
-            <div className="ui toggle checkbox">
-              <input
-                type="checkbox"
-                name="gift"
-                tabIndex="0"
-                className="hidden"
-              />
-              <label>Do not include a receipt in the package</label>
-            </div>
-          </div>
-        </div>
+
         <div className="ui button" tabIndex="0">
-          Submit Order
+          Sign Up
         </div>
       </form>
     </div>
