@@ -22,13 +22,13 @@ function Menu() {
         <Link className="active item" to="/">
           Home
         </Link>
-        <Link className="item" to="/">
+        {/* <Link className="item" to="/">
           Plans & prices{" "}
-        </Link>
+        </Link> */}
         <div className="item right">
-          <Link className="item right" to="/signin">
+          {/* <Link className="item right" to="/signin">
             Sign in
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

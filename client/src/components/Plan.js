@@ -2,24 +2,24 @@ import React from "react";
 
 const Plan = (props) => {
   return (
-    <div class="ui card">
-      <div class="content">
-        <div class="header">{props.title || "Plan"}</div>
+    <div className="ui card">
+      <div className="content">
+        <div className="header">{props.title || "Plan"}</div>
       </div>
-      <div class="content">
-        <h4 class="ui sub header">Plan</h4>
-        <div class="ui small feed">
-          <div class="event">
-            <div class="content">
-              <div class="summary">
+      <div className="content">
+        <h4 className="ui sub header">Plan</h4>
+        <div className="ui small feed">
+          <div className="event">
+            <div className="content">
+              <div className="summary">
                 {props.content || "bla bla bla bla bla bla"}
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="extra content">
-        <button class="ui button">Join Plan</button>
+      <div className="extra content">
+        <button className="ui button">Join Plan</button>
       </div>
     </div>
   );

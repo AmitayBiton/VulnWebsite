@@ -3,7 +3,7 @@ import Plans from "./Plans";
 
 const Main = () => {
   return (
-    <div class="ui">
+    <div className="ui">
       <Plans />
     </div>
   );
