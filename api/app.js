@@ -26,6 +26,11 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/testAPI", testAPIRouter);
 
+const db = require('./model');
+db.sequelize.sync({ force:true }).then(() => {
+  console.log("Drop and re-sync db.");
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
