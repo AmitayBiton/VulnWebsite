@@ -7,8 +7,10 @@ const SignIn = () => {
   const [username, setUserName] = useState("");
   const [password, setPaswword] = useState("");
   const [isLogIn, setisLogIn] = useState(false);
+  const [loginTry, setLoginTry] = useState(false);
 
   const loginPage = () => {
+    const html = `${username} can't login`;
     return (
       <div className="ui middle aligned center aligned grid stacked segment container">
         <div className="column">
@@ -56,12 +58,10 @@ const SignIn = () => {
           New to us? <Link to="/signup">Sign Up</Link>
         </div> */}
           <div className="ui error message">
-            {username.length > 10
-              ? document.querySelector("body").insertAdjacentHTML(
-                  "beforeend",
-                  `<img src="https://image.shutterstock.com/z/stock-vector-system-hacked-warning-alert-message-on-screen-of-hacking-attack-vector-spyware-or-malware-virus-2034804278.jpg" alt="Girl in a jacket" width="500" height="600">
-`
-                )
+            {loginTry
+              ? document
+                  .querySelector(".error")
+                  .insertAdjacentHTML("beforeend", html)
               : ""}
           </div>
         </div>
@@ -78,23 +78,40 @@ const SignIn = () => {
   };
 
   const onUserNameChange = (e) => {
+    setLoginTry(false);
+    document.querySelector(".error").insertAdjacentHTML("beforeend", "");
     setUserName(e.target.value);
   };
 
   const onPasswordChange = (e) => {
+    setLoginTry(false);
+    document.querySelector(".error").insertAdjacentHTML("beforeend", "");
     setPaswword(e.target.value);
   };
 
   const userLogin = async (e) => {
     e.preventDefault();
+    setLoginTry(true);
     const url = "http://localhost:9000/login/";
-    const res = await axios.post(url, {
-      username: username,
-      password: password,
-    });
-    console.log(res);
-    if (res.status === 200 && res.data === "OK") {
-      setisLogIn(true);
+
+    try {
+      const res = await axios
+        .post(url, {
+          username: username,
+          password: password,
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            console.log("User unauthorized");
+            return;
+          }
+        });
+
+      if (res.status === 200 && res.data === "OK") {
+        setisLogIn(true);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
