@@ -1,15 +1,19 @@
 import React from "react";
 import Plan from "./Plan";
+import { Link } from "react-router-dom";
 
 const Plans = () => {
+  const addUser = () => {
+    console.log("user");
+  };
   return (
     <div className="ui container">
       <h1 className="ui header">Customers</h1>
 
-      <a class="ui label large">
-        <i class="user plus icon"></i>
+      <Link className="ui label large" to="/signup">
+        <i className="user plus icon"></i>
         Add New Customer
-      </a>
+      </Link>
 
       <div className="ui three column grid container">
         <br />
