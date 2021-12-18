@@ -4,22 +4,23 @@ const Plan = (props) => {
   return (
     <div className="ui card">
       <div className="content">
-        <div className="header">{props.title || "Plan"}</div>
-      </div>
-      <div className="content">
-        <h4 className="ui sub header">Plan</h4>
-        <div className="ui small feed">
-          <div className="event">
-            <div className="content">
-              <div className="summary">
-                {props.content || "bla bla bla bla bla bla"}
-              </div>
-            </div>
-          </div>
+        <div className="header">Name</div>
+        <div className="meta">
+          <span className="right floated time">2 days ago</span>
+          <span className="category">Premium</span>
+        </div>
+        <div className="description">
+          <p></p>
         </div>
       </div>
       <div className="extra content">
-        <button className="ui button">Join Plan</button>
+        <div className="right floated author">
+          <img
+            className="ui avatar image"
+            src="https://www.w3schools.com/images/w3schools_green.jpg"
+          />{" "}
+          Matt
+        </div>
       </div>
     </div>
   );
