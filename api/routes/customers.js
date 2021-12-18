@@ -1,22 +1,41 @@
 var express = require('express');
 var router = express.Router();
+var databaseConnection = require('../handlers/db')
 
 /* GET users listing. */
 router.get('/', function(req, res) {
-  // TODO: query all customers from SQL to JSON and send as response
-  res.send(`all users`);
+  databaseConnection.query('SELECT * FROM customers', function (err, result) {
+    if (err) throw err;      
+    if(result.length == 0){
+      res.sendStatus(404);
+    }else{
+      res.send(result);
+    }
+  });
 });
 
 router.get('/:customerId', function(req, res) {
-  // TODO: query sepcified customer from SQL to JSON and send as response
-  res.send(`customerId = ${req.params.customerId}`)
+  databaseConnection.query(`SELECT * FROM customers WHERE customerID = '${req.params.customerId}'`, function (err, result) {
+    //' or 1=1 '
+    if (err) throw err;      
+    console.log(result.length);
+    if(result.length == 0){
+      res.sendStatus(404);
+    }else{
+      res.send(result);
+    }
+  });
 });
 
 router.post('/', function(req, res) {
     // TODO: input validation for all params
-    
-    // TODO: add new object to customers sql table
-    res.send(`customerId`)
+    if(req.body.lastName && req.body.firstName && req.body.emailAddress && req.body.phoneNumber){
+      var SQLQuery = `INSERT INTO vulnwebsitedb.customers(lastName,firstName,emailAddress,phoneNumber) VALUES ('${req.body.lastName}','${req.body.firstName}','${req.body.emailAddress}','${req.body.phoneNumber}')`
+      databaseConnection.query(SQLQuery, function (err, result) {
+        if (err) throw err;      
+        res.send(`{"customerID": ${result.insertId}}`)
+      });
+    }
 });
 
 module.exports = router;
