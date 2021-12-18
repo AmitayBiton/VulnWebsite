@@ -29,7 +29,7 @@ app.use("/testAPI", testAPIRouter);
 app.use("/db", sqlRouter);
 
 const db = require('./model');
-db.sequelize.sync({ force:true }).then(() => {
+db.sequelize.sync({ force:false }).then(() => {
   console.log("Drop and re-sync db.");
 });
 
