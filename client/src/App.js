@@ -1,34 +1,21 @@
-import React, {Component} from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import Menu from "./components/Menu";
+import { BrowserRouter, Route } from "react-router-dom";
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
+import Main from "./components/Main";
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { apiResponse: "" };
-    }
-    
-    callAPI() {
-        fetch("http://localhost:9000/testAPI")
-            .then(res => res.text())
-            .then(res => this.setState({ apiResponse: res }));
-    }
-    
-    componentWillMount() {
-        this.callAPI();
-    }
-    
-    render () {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Welcome bitchesssss</h1>
-                </header>
-                <p className="App-intro">{this.state.apiResponse}</p>
-            </div>
-        );
-    }
-}
+const App = () => {
+  return (
+    <div>
+      <BrowserRouter>
+        <div>
+          <Menu />
+          <Route path="/" exact component={SignIn} />
+          <Route path="/signup" exact component={SignUp} />
+        </div>
+      </BrowserRouter>
+    </div>
+  );
+};
 
 export default App;
