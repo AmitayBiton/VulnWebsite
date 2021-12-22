@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
 var sessions = require('express-session');
+var mysqlStore = require('express-mysql-session')(sessions);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -12,10 +13,22 @@ var customersRouter = require('./routes/customers');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 var testAPIRouter = require("./routes/testAPI");
+const dbConfig = require('./config/db.config');
 
 var app = express();
 
 const oneDay = 1000* 60 * 60 * 24;
+const storeOption = {
+  connectionLimit: 10,
+  password: dbConfig.PASSWORD,
+  user: dbConfig.USER,
+  database: dbConfig.DB,
+  host: 'localhost',
+  port: '3306',
+  createDatasetTable: true
+};
+
+const sessionStore = new mysqlStore(storeOption);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,8 +44,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(sessions({
     secret: "thisisatestkeyitsnotthatimportantrightnow123",
+    store: sessionStore,
     saveUninitialized:true,
-    cookie: {maxAge: oneDay },
+    cookie: {maxAge: oneDay},
     resave: false
 }));
 

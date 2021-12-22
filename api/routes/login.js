@@ -10,8 +10,10 @@ router.post("/", (req, res) => {
     let password = req.body.password;
     if (username == "admin" && password == "admin") {
       res.sendStatus(200);
+    } else{
+      res.sendStatus(401);
     }
-    res.sendStatus(401);
+    
   } else {
     res.send(
       "One or more parameters are not provided. Required parameters:'username','password'"
