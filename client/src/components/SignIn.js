@@ -92,11 +92,11 @@ const SignIn = () => {
   const userLogin = async (e) => {
     e.preventDefault();
     setLoginTry(true);
-    const url = "http://localhost:9000/login/";
+    const url = "https://localhost:9000/login/";
 
     try {
       const res = await axios
-        .post(url, {
+        .post( url, {
           username: username,
           password: password,
         })
