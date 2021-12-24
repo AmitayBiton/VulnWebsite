@@ -1,10 +1,10 @@
 import React from "react";
-import Plans from "./Plans";
+import Customers from "./Customers";
 
 const Main = () => {
   return (
     <div className="ui">
-      <Plans />
+      <Customers />
     </div>
   );
 };

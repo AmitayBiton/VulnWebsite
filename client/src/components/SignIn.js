@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Plans from "./Plans";
+import Customers from "./Customers";
 
 const SignIn = () => {
   const [username, setUserName] = useState("");
@@ -69,10 +69,10 @@ const SignIn = () => {
     );
   };
 
-  const plansPage = () => {
+  const CustomersPage = () => {
     return (
       <div className="ui">
-        <Plans />
+        <Customers />
       </div>
     );
   };
@@ -96,7 +96,7 @@ const SignIn = () => {
 
     try {
       const res = await axios
-        .post( url, {
+        .post(url, {
           username: username,
           password: password,
         })
@@ -118,7 +118,7 @@ const SignIn = () => {
   if (!isLogIn) {
     return loginPage();
   }
-  return plansPage();
+  return CustomersPage();
 };
 
 export default SignIn;
