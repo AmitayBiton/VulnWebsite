@@ -1,6 +1,6 @@
 module.exports = {
-    HOST: "localhost",
-    USER: "root",
-    PASSWORD: "password",
-    DB: "vulnwebsitedb"
-  };
+  HOST: "localhost",
+  USER: "root",
+  PASSWORD: "Yuval0547.",
+  DB: "vulnwebsitedb",
+};
