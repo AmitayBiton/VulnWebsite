@@ -23,6 +23,7 @@ const Customers = () => {
         emailAddress={el.emailAddress}
         phoneNumber={el.phoneNumber}
         customerID={el.customerID}
+        key={el.customerID}
       />
     );
   });
@@ -41,7 +42,7 @@ const Customers = () => {
         <br />
         <br />
 
-        <div class="column">{getAllCustomers}</div>
+        <div className="column">{getAllCustomers}</div>
       </div>
     </div>
   );

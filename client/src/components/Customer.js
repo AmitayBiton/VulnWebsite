@@ -2,7 +2,7 @@ import React from "react";
 
 const Customer = (props) => {
   return (
-    <div className="ui card" key={props.customerID}>
+    <div className="ui card">
       <div className="content">
         <div className="header">{props.firstName + " " + props.lastName}</div>
         <div className="meta">
