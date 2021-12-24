@@ -6,7 +6,7 @@ var databaseConnection = require('../handlers/db')
 
 /* GET users listing. */
 router.get('/', function(req, res) {
-  databaseConnection.query('SELECT * FROM customers', function (err, result) {
+  databaseConnection.query('SELECT * FROM users', function (err, result) {
     if (err) throw err;      
     // console.log(result);
     res.send(result);
@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:userId', function(req, res) {
-  databaseConnection.query(`SELECT * FROM customers WHERE customerID = '${req.params.userId}'`, function (err, result) {
+  databaseConnection.query(`SELECT * FROM users WHERE userID = '${req.params.userId}'`, function (err, result) {
     //' or 1=1 '
     if (err) throw err;      
     res.send(result);
