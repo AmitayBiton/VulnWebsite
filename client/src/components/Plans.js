@@ -3,40 +3,40 @@ import Plan from "./Plan";
 
 const Plans = () => {
   return (
-    <div class="ui three column grid container">
+    <div className="ui three column grid container">
       <br />
-      <h1 class="ui header">Our Plans</h1>
+      <h1 className="ui header">Our Plans</h1>
 
-      <div class="row">
-        <div class="column">
+      <div className="row">
+        <div className="column">
           <Plan title={"Unlimited"} content={"my content"} />
         </div>
-        <div class="column">
+        <div className="column">
           <Plan />
         </div>
-        <div class="column">
-          <Plan />
-        </div>
-      </div>
-      <div class="row">
-        <div class="column">
-          <Plan />
-        </div>
-        <div class="column">
-          <Plan />
-        </div>
-        <div class="column">
+        <div className="column">
           <Plan />
         </div>
       </div>
-      <div class="row">
-        <div class="column">
+      <div className="row">
+        <div className="column">
           <Plan />
         </div>
-        <div class="column">
+        <div className="column">
           <Plan />
         </div>
-        <div class="column">
+        <div className="column">
+          <Plan />
+        </div>
+      </div>
+      <div className="row">
+        <div className="column">
+          <Plan />
+        </div>
+        <div className="column">
+          <Plan />
+        </div>
+        <div className="column">
           <Plan />
         </div>
       </div>
