@@ -1,13 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const PWDTool = require("../vars/passwords");
+const mailTansporter = require("../transporters/mailTransporter")
 
 
 router.get('/', function(req, res, next) {
-    console.log(PWDTool.validatePasswordHistory("admin","Password3!"))
-    console.log(PWDTool.validatePasswordHistory("admin","Passworw3!"))
-    
-    
+    mailTansporter.notify("amitaybiton@gmail.com","this is a test message from NodeJS","Test From NodeJS")
     res.send('API is working properly');
 });
 
