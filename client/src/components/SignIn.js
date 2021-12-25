@@ -9,8 +9,15 @@ const SignIn = () => {
   const [isLogIn, setisLogIn] = useState(false);
   const [loginTry, setLoginTry] = useState(false);
 
+  const loginMessagge = (html) => {
+    document.querySelector(".error").insertAdjacentHTML("beforeend", html);
+    setTimeout(() => {
+      document.querySelector(".error").innerHTML = "";
+    }, 3000);
+  };
+
   const loginPage = () => {
-    const html = `${username} can't login`;
+    const html = `${username} unauthorized`;
     return (
       <div className="ui middle aligned center aligned grid stacked segment container">
         <div className="column">
@@ -58,11 +65,7 @@ const SignIn = () => {
           New to us? <Link to="/signup">Sign Up</Link>
         </div> */}
           <div className="ui error message">
-            {loginTry
-              ? document
-                  .querySelector(".error")
-                  .insertAdjacentHTML("beforeend", html)
-              : ""}
+            {loginTry ? loginMessagge(html) : ""}
           </div>
         </div>
       </div>
@@ -101,9 +104,13 @@ const SignIn = () => {
           password: password,
         })
         .catch((err) => {
-          if (err.response.status === 401) {
+          if (
+            err.response.status === 401 ||
+            username === "" ||
+            password === ""
+          ) {
             console.log("User unauthorized");
-            return;
+            return loginPage();
           }
         });
 
