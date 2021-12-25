@@ -27,5 +27,5 @@ module.exports = {
   }
 ```
 
-*when starting the client site (REACT) do this in the powershell shell:
+* when starting the client site (REACT) do this in the powershell shell:
 ($env:HTTPS = "true") -and (npm start)
