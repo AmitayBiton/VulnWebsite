@@ -20,6 +20,7 @@ CREATE TABLE vulnwebsitedb.users (
     userID int NOT NULL AUTO_INCREMENT,
     userName varchar(255),
     passwordHash varchar(255),
+    passwordSalt varchar(255),
     lastName varchar(255),
     firstName varchar(255),
     emailAddress varchar(255),
