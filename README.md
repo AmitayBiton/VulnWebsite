@@ -26,6 +26,19 @@ module.exports = {
     requirementCount: 4,
   }
 ```
+* create new file called 'transporter.congif.js'
+should look like:
+```md
+module.exports = {
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: 'vulnnotifier@gmail.com',
+    pass: '%passwordForMail%'
+  }
+};
+```
 
 * when starting the client site (REACT) do this in the powershell shell:
 ($env:HTTPS = "true") -and (npm start)
