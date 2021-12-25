@@ -27,5 +27,11 @@ CREATE TABLE vulnwebsitedb.users (
     PRIMARY KEY (userID)
 );
 
-INSERT INTO vulnwebsitedb.users(userName,passwordHash,lastName,firstName,emailAddress)
-VALUES ('admin','8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918','admin','admin','admin@vulnWebsite.com');
+CREATE TABLE vulnwebsitedb.passwordHistory (
+    passwordId int NOT NULL AUTO_INCREMENT,
+    userName varchar(255),
+    passwordHash varchar(255),
+    passwordSalt varchar(255),
+    created datetime DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (passwordId)
+);
