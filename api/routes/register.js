@@ -4,6 +4,8 @@ var router = express.Router();
 var databaseConnection = require("../handlers/db");
 const passwordComplexity = require("joi-password-complexity");
 const PWD_CONFIG = require("../config/pwd.config");
+const PWDTool = require("../vars/passwords");
+
 
 router.post('/', (req, res) => {
     // TODO: implement sql query to Database, hashing password and check if password hash equal to database
@@ -22,11 +24,13 @@ router.post('/', (req, res) => {
                 if (result.length == 0) {
                     //all valid !
                     // hasing password:
-                    var passwordHash = hashPassword(req.body.password)
+                    var passRes = PWDTool.calculateHmacAndSalt(req.body.password)
+                    var passwordHash = passRes.hmac
+                    var passwordSalt = passRes.salt
 
                     //db insersion:
-                    databaseConnection.query(`INSERT INTO vulnwebsitedb.users(userName,passwordHash,lastName,firstName,emailAddress)
-                    VALUES ('${req.body.username}','${passwordHash}','${req.body.lastName}','${req.body.firstName}','${req.body.emailAddress}')`, function (err, result) {
+                    databaseConnection.query(`INSERT INTO vulnwebsitedb.users(userName,passwordHash,passwordSalt,lastName,firstName,emailAddress)
+                    VALUES ('${req.body.username}','${passwordHash}','${passwordSalt}','${req.body.lastName}','${req.body.firstName}','${req.body.emailAddress}')`, function (err, result) {
                         if (err) throw err;
                         res.status(200).send(`{"customerID": ${result.insertId}}`);
                     });
@@ -43,7 +47,3 @@ router.post('/', (req, res) => {
   });
 
 module.exports = router;
-
-function hashPassword(clearPassword){
-    return clearPassword
-}
