@@ -17,7 +17,7 @@ router.get('/:userId', function(req, res) {
   res.status(200).send(results);  
 });
 
-router.put('/:userId/changePassword', function(req, res) {
+router.post('/:userId/changePassword', function(req, res) {
   var username = databaseConnection.query(`SELECT username FROM users WHERE userID = '${req.params.userId}' LIMIT 1`)[0].username
   console.log(username)
   if(!PWDTool.isComplexed(req.body.password)){
