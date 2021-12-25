@@ -12,14 +12,15 @@ const Customer = (props) => {
         <div className="description">
           <p></p>
         </div>
-      </div>
-      <div className="extra content">
-        <div className="right floated author">
-          <img
-            className="ui avatar image"
-            src="https://www.w3schools.com/images/w3schools_green.jpg"
-          />{" "}
-          {props.emailAddress}
+
+        <div className="extra content">
+          <div className="right floated author">
+            <img
+              className="ui avatar image"
+              src="https://www.w3schools.com/images/w3schools_green.jpg"
+            />{" "}
+            {props.emailAddress}
+          </div>
         </div>
       </div>
     </div>

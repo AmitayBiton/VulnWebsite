@@ -11,9 +11,6 @@ const Customers = () => {
     const res = await axios(url);
     setCustomers(res.data);
   }, []);
-  const addUser = () => {
-    console.log("user");
-  };
 
   const getAllCustomers = customers?.map((el, index) => {
     return (

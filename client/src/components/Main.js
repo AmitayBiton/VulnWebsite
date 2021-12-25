@@ -3,8 +3,10 @@ import Customers from "./Customers";
 
 const Main = () => {
   return (
-    <div className="ui">
-      <Customers />
+    <div class="ui grid">
+      <div class="four wide column">
+        <Customers />
+      </div>
     </div>
   );
 };
