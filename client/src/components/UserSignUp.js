@@ -1,6 +1,7 @@
 import react, { useState } from "react";
 import axios from "axios";
 import Customers from "./Customers";
+import SignIn from "./SignIn";
 
 function UserSignUp() {
   const [firstName, setFirstName] = useState("");
@@ -11,22 +12,26 @@ function UserSignUp() {
 
   const [addUser, setAddUser] = useState(false);
   const [userCreated, setUserCreated] = useState(false);
+  const [signUpErr, setSignUpErr] = useState(false);
 
   const addNewUserBtnClicked = async (e) => {
-    const url = "https://localhost:9000/register/";
+    setAddUser(true);
+    const url = "https://localhost:9000/register";
 
     const res = await axios
       .post(url, {
         lastName: lastName,
         firstName: firstName,
         emailAddress: mail,
-        userName: userName,
+        username: userName,
         password: password,
       })
       .catch((err) => {
-        console.log(err);
+        console.log(lastName, firstName, mail, userName, password);
         if (err.response.status !== 200) {
-          setUserCreated(true);
+          setUserCreated(false);
+          setSignUpErr(err.response.data);
+          return;
         }
       });
     // setFirstName("");
@@ -36,15 +41,15 @@ function UserSignUp() {
     // setPassword("");
     // setUserName("");
 
-    return;
-
-    setAddUser(true);
+    if (userCreated) {
+      setSignUpErr("Success");
+    }
   };
   if (addUser) {
     setAddUser(false);
     return (
       <div className="ui">
-        <Customers />
+        <SignIn />
       </div>
     );
   } else
@@ -122,7 +127,7 @@ function UserSignUp() {
             Sign Up
           </div>
         </form>
-        <div className="ui error message">'vlas '</div>
+        <div className="ui error message">'{signUpErr} '</div>
       </div>
     );
 }
