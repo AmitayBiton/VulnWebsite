@@ -1,0 +1,5 @@
+# config files
+/api/config
+
+#node modules
+**/node_modules

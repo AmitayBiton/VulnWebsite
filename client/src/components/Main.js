@@ -1,10 +1,12 @@
 import React from "react";
-import Plans from "./Plans";
+import Customers from "./Customers";
 
 const Main = () => {
   return (
-    <div class="ui">
-      <Plans />
+    <div class="ui grid">
+      <div class="four wide column">
+        <Customers />
+      </div>
     </div>
   );
 };
