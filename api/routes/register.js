@@ -1,5 +1,4 @@
-const e = require('express');
-var express = require('express');
+const express = require('express');
 var router = express.Router();
 var databaseConnection = require("../handlers/db");
 const passwordComplexity = require("joi-password-complexity");
@@ -8,11 +7,7 @@ const PWDTool = require("../vars/passwords");
 
 
 router.post('/', (req, res) => {
-    //TODO: 1. changePassword, complexity - password history    
     if(req.body.username && req.body.password && req.body.emailAddress && req.body.firstName && req.body.lastName){
-        //input validation:
-        
-        // isExist validation:
         results = databaseConnection.query(`SELECT userName FROM users WHERE userName = '${req.body.username}'`)
         if(results.length == 0){
             // password validation:
@@ -28,7 +23,7 @@ router.post('/', (req, res) => {
                 //DB insersion:
                 var results = databaseConnection.query(`INSERT INTO vulnwebsitedb.users(userName,passwordHash,passwordSalt,lastName,firstName,emailAddress)
                     VALUES ('${req.body.username}','${passwordHash}','${passwordSalt}','${req.body.lastName}','${req.body.firstName}','${req.body.emailAddress}')`)
-                res.status(200).send(`{"customerID": ${results.insertId}}`);
+                res.status(200).send(`{"userID": ${results.insertId}}`);
             }
         }else{
             res.status(400).send(`the user '${req.body.username}' is already exists`);
