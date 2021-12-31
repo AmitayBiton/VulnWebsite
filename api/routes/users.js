@@ -5,8 +5,6 @@ var databaseConnection = require('../handlers/db')
 const PWDTool = require("../vars/passwords");
 const PWD_HISTORY_CONFIG = require("../config/pwdHistory.config");
 const crypto = require("crypto");
-const e = require('express');
-
 
 
 
@@ -27,8 +25,9 @@ router.get('/:userId', function(req, res) {
 });
 
 router.post('/:userId/changePassword', function(req, res) {
-  var username = databaseConnection.query(`SELECT username FROM users WHERE userID = '${req.params.userId}' LIMIT 1`)[0].username
-  if(username.length != 0){
+  var results = databaseConnection.query(`SELECT userName FROM users WHERE userID = '${req.params.userId}' LIMIT 1`)[0]
+  if(results.length != 0){
+    username = results[0].userName
     if(!PWDTool.isComplexed(req.body.password)){
       res.status(400).send(`not complexed`)
     }else if(!PWDTool.isPasswordUsed(username,req.body.password)){
