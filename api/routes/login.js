@@ -34,13 +34,13 @@ router.post("/", (req, res) => {
   }
 });
 
-router.get("/", (req, res) => {
-  if (req.session.user) {
-    res.send({ loggedIn: true, user: req.session.user });
-  } else {
-    console.log(req.session.user);
-    res.send({ loggedIn: false });
-  }
-});
+// router.get("/", (req, res) => {
+//   if (req.session.user) {
+//     res.send({ loggedIn: true, user: req.session.user });
+//   } else {
+//     console.log(req.session.user);
+//     res.send({ loggedIn: false });
+//   }
+// });
 
 module.exports = router;

@@ -35,9 +35,16 @@ const Customers = () => {
 
       <div>
         <br />
-        <Link className="ui label large" to="/signup">
+        <Link className="ui label large" to="/customersignup">
           <i className="user plus icon"></i>
           Add New Customer
+        </Link>
+      </div>
+      <div>
+        <br />
+        <Link className="ui label large" to="/usersignup">
+          <i className="user plus icon"></i>
+          Add New User
         </Link>
       </div>
     </div>
