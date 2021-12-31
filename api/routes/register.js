@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
             res.status(400).send(`the user '${req.body.username}' is already exists`);
         }
     } else{
-        res.send("One or more parameters are not provided. Required parameters:'username','password','emailAddress'");
+        res.status(400).send("One or more parameters are not provided. Required parameters:'username','password','emailAddress'");
     }
     
   });
