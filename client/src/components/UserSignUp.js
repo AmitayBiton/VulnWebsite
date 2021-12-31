@@ -15,6 +15,7 @@ function UserSignUp() {
   const [signUpErr, setSignUpErr] = useState(false);
 
   const addNewUserBtnClicked = async (e) => {
+    setAddUser(true);
     const url = "https://localhost:9000/register";
 
     const res = await axios
@@ -30,6 +31,7 @@ function UserSignUp() {
         if (err.response.status !== 200) {
           setUserCreated(false);
           setSignUpErr(err.response.data);
+          return;
         }
       });
     // setFirstName("");
@@ -39,7 +41,9 @@ function UserSignUp() {
     // setPassword("");
     // setUserName("");
 
-    setAddUser(true);
+    if (userCreated) {
+      setSignUpErr("Success");
+    }
   };
   if (addUser) {
     setAddUser(false);
