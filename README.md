@@ -26,6 +26,13 @@ module.exports = {
     requirementCount: 4,
   }
 ```
+* create new file called 'pwdHistory.config.js'
+should look like:
+```md
+module.exports = {
+    history:4
+}
+```
 * create new file called 'transporter.congif.js'
 should look like:
 ```md
