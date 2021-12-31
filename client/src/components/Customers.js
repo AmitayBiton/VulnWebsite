@@ -40,13 +40,7 @@ const Customers = () => {
           Add New Customer
         </Link>
       </div>
-      <div>
-        <br />
-        <Link className="ui label large" to="/usersignup">
-          <i className="user plus icon"></i>
-          Add New User
-        </Link>
-      </div>
+      <div></div>
     </div>
   );
 };

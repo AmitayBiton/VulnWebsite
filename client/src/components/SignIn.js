@@ -69,6 +69,11 @@ const SignIn = () => {
               <i class="icon user"></i>
               Forgot your password?
             </button>
+
+            <Link className="ui small button" to="/usersignup">
+              <i className="user plus icon"></i>
+              Add New User
+            </Link>
           </form>
 
           {/* <div class="ui message">
