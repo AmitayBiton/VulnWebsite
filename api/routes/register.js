@@ -1,21 +1,10 @@
-const e = require("express");
-var express = require("express");
+const e = require('express');
+var express = require('express');
 var router = express.Router();
 var databaseConnection = require("../handlers/db");
 const passwordComplexity = require("joi-password-complexity");
 const PWD_CONFIG = require("../config/pwd.config");
 const PWDTool = require("../vars/passwords");
-
-router.post("/", (req, res) => {
-  //TODO: 1. changePassword, complexity - password history
-  if (
-    req.body.username &&
-    req.body.password &&
-    req.body.emailAddress &&
-    req.body.firstName &&
-    req.body.lastName
-  ) {
-    //input validation:
 
 
 router.post('/', (req, res) => {
@@ -47,13 +36,9 @@ router.post('/', (req, res) => {
     } else{
         res.status(400).send("One or more parameters are not provided. Required parameters:'username','password','emailAddress'");
     }
-  } else {
-    res
-      .status(400)
-      .send(
-        "One or more parameters are not provided. Required parameters:'username','password','emailAddress'"
-      );
-  }
-});
+    
+  });
 
 module.exports = router;
+
+
