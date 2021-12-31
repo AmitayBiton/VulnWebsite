@@ -29,17 +29,16 @@ const Customers = () => {
     <div className="ui container">
       <h1 className="ui header">Customers</h1>
 
-      <Link className="ui label large" to="/signup">
-        <i className="user plus icon"></i>
-        Add New Customer
-      </Link>
-
       <div className="ui three column grid container">
-        <br />
-        <br />
-        <br />
-
         <div className="column">{getAllCustomers}</div>
+      </div>
+
+      <div>
+        <br />
+        <Link className="ui label large" to="/signup">
+          <i className="user plus icon"></i>
+          Add New Customer
+        </Link>
       </div>
     </div>
   );

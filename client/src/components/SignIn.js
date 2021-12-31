@@ -59,13 +59,17 @@ const SignIn = () => {
                 Login
               </div>
             </div>
+            <button class="ui small button left">
+              <i class="icon user"></i>
+              Forgot your password?
+            </button>
           </form>
 
           {/* <div class="ui message">
           New to us? <Link to="/signup">Sign Up</Link>
         </div> */}
           <div className="ui error message">
-            {loginTry ? loginMessagge(html) : ""}
+            {/*loginTry ? loginMessagge(html) : ""*/}
           </div>
         </div>
       </div>
@@ -110,10 +114,12 @@ const SignIn = () => {
             password === ""
           ) {
             console.log("User unauthorized");
-            return loginPage();
+            ///****
+            //return loginPage();
           }
         });
-
+      ///****
+      setisLogIn(true);
       if (res.status === 200 && res.data === "OK") {
         setisLogIn(true);
       }
