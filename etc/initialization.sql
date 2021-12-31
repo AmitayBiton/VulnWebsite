@@ -35,3 +35,10 @@ CREATE TABLE vulnwebsitedb.passwordHistory (
     created datetime DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (passwordId)
 );
+
+CREATE TABLE vulnwebsitedb.forgetPassword (
+    userName varchar(255) NOT NULL,
+    PincodeHash varchar(255),
+    PincodeSalt varchar(255),
+    PRIMARY KEY (userName)
+);
