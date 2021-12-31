@@ -10,9 +10,12 @@ const SignIn = () => {
   const [loginTry, setLoginTry] = useState(false);
 
   const loginMessagge = (html) => {
+    if (isLogIn) return;
     document.querySelector(".error").insertAdjacentHTML("beforeend", html);
     setTimeout(() => {
-      document.querySelector(".error").innerHTML = "";
+      const el = document.querySelector(".error");
+      if (!el) return;
+      el.innerHTML = "";
     }, 3000);
   };
 
@@ -59,7 +62,10 @@ const SignIn = () => {
                 Login
               </div>
             </div>
-            <button class="ui small button left">
+            <button
+              class="ui small button left"
+              onClick={(e) => forgotPasswordClick(e)}
+            >
               <i class="icon user"></i>
               Forgot your password?
             </button>
@@ -69,7 +75,7 @@ const SignIn = () => {
           New to us? <Link to="/signup">Sign Up</Link>
         </div> */}
           <div className="ui error message">
-            {/*loginTry ? loginMessagge(html) : ""*/}
+            {loginTry && !isLogIn ? loginMessagge(html) : ""}
           </div>
         </div>
       </div>
@@ -96,6 +102,12 @@ const SignIn = () => {
     setPaswword(e.target.value);
   };
 
+  const forgotPasswordClick = (e) => {
+    e.preventDefault();
+    console.log("forgot password");
+    return;
+  };
+
   const userLogin = async (e) => {
     e.preventDefault();
     setLoginTry(true);
@@ -114,13 +126,11 @@ const SignIn = () => {
             password === ""
           ) {
             console.log("User unauthorized");
-            ///****
-            //return loginPage();
+            return loginPage();
           }
         });
-      ///****
-      setisLogIn(true);
-      if (res.status === 200 && res.data === "OK") {
+
+      if (res.status === 200 && res.data === "loggin Succeeded!") {
         setisLogIn(true);
       }
     } catch (err) {
