@@ -76,6 +76,7 @@ router.post('/:userId/changeForgottenPassword', function(req, res) {
           }else{
             //all valid, changing password
             PWDTool.changePassword(username,req.body.password)
+            databaseConnection.query(`DELETE FROM vulnwebsitedb.forgetPassword WHERE userName = '${username}'`)
             res.status(200).send(`Password changed successfully!`)
           }  
         }else{
