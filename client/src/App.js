@@ -7,13 +7,10 @@ import Main from "./components/Main";
 const App = () => {
   return (
     <div>
-      <BrowserRouter>
-        <div>
-          <Menu />
-          <Route path="/" exact component={SignIn} />
-          <Route path="/signup" exact component={SignUp} />
-        </div>
-      </BrowserRouter>
+      <div>
+        <Menu />
+        <SignIn />
+      </div>
     </div>
   );
 };
