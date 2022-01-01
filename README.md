@@ -57,7 +57,7 @@ npm run init
 ```
 * output should look like this:
 ```md
-> api@0.0.0 init C:\Users\amita\Desktop\school\cyber_security_course\cybersecurityproject\VulnWebsite\api
+> api@0.0.0 init .\VulnWebsite\api
 > node ./etc/sql_init.js
 
 Successfully connected to the database!
