@@ -94,6 +94,18 @@ inserting data to 'users' table:
 -----------------------------------------------------
 ``` 
 
+### 3. Starting the project
+* Navigate to /api and run the following command:
+```md
+npm start
+```
 
-* when starting the client site (REACT) do this in the powershell shell:
-($env:HTTPS = "true") -and (npm start)
+* Navigate to /client:
+** set environment varibale HTTPS with the value 'true', using Powershell:
+```md
+$env:HTTPS = "true"
+```
+** Run the following command:
+```md
+npm start
+```
