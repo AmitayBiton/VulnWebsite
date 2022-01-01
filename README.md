@@ -108,7 +108,7 @@ $env:HTTPS = "true"
 ```
 * Linux/Mac machine:set environment varibale HTTPS with the value 'true', using bash terminal:
 ```md
-export HTTPS=ture
+export HTTPS = ture
 ```
 
 * Run the following command:
