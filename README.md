@@ -101,11 +101,11 @@ npm start
 ```
 
 * Navigate to /client:
-** set environment varibale HTTPS with the value 'true', using Powershell:
+* set environment varibale HTTPS with the value 'true', using Powershell:
 ```md
 $env:HTTPS = "true"
 ```
-** Run the following command:
+* Run the following command:
 ```md
 npm start
 ```
