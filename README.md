@@ -1,6 +1,7 @@
 # VulnWebsite
 vulnerable website - cyber security course project
-## before you hack:
+## Before you hack:
+### 1. Config files:
 * create /api/config direcory
 * create new file called '/api/config/db.config.js'
 should look like:
@@ -11,6 +12,8 @@ module.exports = {
   USER: "root",
   PASSWORD: "%%PASSWORD%%",
   DB: "vulnwebsitedb",
+  MULTIPLESTATEMENT: true,
+  PORT: 3306
 };
 ```
 * create new file called '/api/config/pwd.config.js'
@@ -23,7 +26,7 @@ module.exports = {
     upperCase: 1,
     numeric: 1,
     symbol: 1,
-    requirementCount: 4,
+    requirementCount: 4
   }
 ```
 * create new file called 'pwdHistory.config.js'
@@ -46,6 +49,51 @@ module.exports = {
   }
 };
 ```
+
+### 2. Database initialization:
+* navigate to /api directory and run the following command:
+```md
+npm run init
+```
+* output should look like this:
+```md
+> api@0.0.0 init C:\Users\amita\Desktop\school\cyber_security_course\cybersecurityproject\VulnWebsite\api
+> node ./etc/sql_init.js
+
+Successfully connected to the database!
+-----------------------------------------------------
+            Initialization of Database:
+-----------------------------------------------------
+cleaning up:
+   'customers' table has been droped!
+   'passwordHistory' table has been droped!
+   'forgetPassword' table has been droped!
+   'users' table has been droped!
+
+-----------------------------------------------------
+creating 'customers' table:
+   'customers' table has been created!
+inserting data to 'customers' table:
+   data has been inserted to 'customers' table!
+
+-----------------------------------------------------
+creating 'passwordHistory' table:
+   'passwordHistory' table has been created!
+
+-----------------------------------------------------
+creating 'forgetPassword' table:
+   'passwordHistory' table has been created!
+
+-----------------------------------------------------
+creating 'users' table:
+   'users' table has been created!
+inserting data to 'users' table:
+   data has been inserted to 'users' table!
+-----------------------------------------------------
+         Database Initialization Completed!
+-----------------------------------------------------
+``` 
+
 
 * when starting the client site (REACT) do this in the powershell shell:
 ($env:HTTPS = "true") -and (npm start)
