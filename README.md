@@ -95,16 +95,22 @@ inserting data to 'users' table:
 ``` 
 
 ### 3. Starting the project
+#### Server:
 * Navigate to /api and run the following command:
 ```md
 npm start
 ```
-
+#### Client:
 * Navigate to /client:
-* set environment varibale HTTPS with the value 'true', using Powershell:
+* Windows machine: set environment varibale HTTPS with the value 'true', using Powershell:
 ```md
 $env:HTTPS = "true"
 ```
+* Linux/Mac machine:set environment varibale HTTPS with the value 'true', using bash terminal:
+```md
+export HTTPS=ture
+```
+
 * Run the following command:
 ```md
 npm start
