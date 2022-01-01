@@ -27,7 +27,7 @@ exports.validatePassword = (password,passwordHash,salt) => {
 
 exports.archivePassword = (username,passwordHash,salt) => {
     results = databaseConnection.query(`INSERT INTO vulnwebsitedb.passwordHistory(userName,passwordHash,passwordSalt) VALUES ('${username}','${passwordHash}','${salt}')`)
-    console.log(`password archived ${username} : ${passwordHash} : ${salt}`)
+    // console.log(`password archived ${username} : ${passwordHash} : ${salt}`)
 }
 
 exports.changePassword = (username,password) => {
