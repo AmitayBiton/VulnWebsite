@@ -111,7 +111,7 @@ function UserSignUp() {
               </div>
               <div className="field">
                 <input
-                  type="text"
+                  type="password"
                   name="password"
                   placeholder="Password"
                   value={password}

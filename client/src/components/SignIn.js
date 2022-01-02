@@ -29,27 +29,29 @@ const SignIn = () => {
         <br />
         <div class="field" placeholder="Last Name">
           <div class="ui pointing below label">
-            A Pin code sent to your mail, please enter it below
+            If the username exist, a pin code sent to your mail, please enter it
+            and a new password below
           </div>
           <div
-            class="ui action input"
+            class="ui input focus"
             onChange={(e) => setPinCode(e.target.value)}
             value={pinCode}
           >
             <input type="text" placeholder="Pin code" />
-            <button class="ui icon button" onClick={(e) => PinCodeSendBTN(e)}>
-              Send
-            </button>
           </div>
           <br />
           <br />
           <div
-            class="ui action input"
+            class="ui input focus"
             onChange={(e) => setNewPassword(e.target.value)}
             value={newPassword}
           >
-            <input type="text" placeholder="New Password" />
+            <input type="text" placeholder="New Password" type="password" />
           </div>
+
+          <button class="ui icon button" onClick={(e) => PinCodeSendBTN(e)}>
+            Send
+          </button>
         </div>
       </form>
     );
@@ -69,8 +71,7 @@ const SignIn = () => {
       });
   };
 
-  const loginPage = () => {
-    const html = `${username} unauthorized`;
+  const loginPage = (html) => {
     return (
       <div className="ui middle aligned center aligned grid stacked segment container">
         <div className="column">
@@ -169,11 +170,8 @@ const SignIn = () => {
     });
     if (!res) return;
 
-    console.log(res.data);
-    console.log(username);
-    const found = res.data.find((element) => element.username === username);
-    console.log(found);
-    console.log(found.userID);
+    const found = res?.data.find((element) => element.username === username);
+    if (!found) return;
     setUserID(found.userID);
     url = `https://localhost:9000/users/${found.userID}/forgetPassword`;
 
@@ -204,7 +202,7 @@ const SignIn = () => {
           }
         });
 
-      if (res.status === 200 && res.data === "loggin Succeeded!") {
+      if (res.status === 200 && res.data === "login Succeeded!") {
         setisLogIn(true);
       }
     } catch (err) {
