@@ -31,9 +31,9 @@ function UserSignUp() {
       })
       .catch((err) => {
         console.log(lastName, firstName, mail, userName, password);
-        if (err.response.status !== 200) {
+        if (err?.response?.status !== 200) {
           setUserCreated(false);
-          setSignUpErr(err.response.data);
+          setSignUpErr(err?.response?.data);
           return;
         }
       });
