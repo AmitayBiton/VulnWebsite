@@ -57,7 +57,7 @@ const SignIn = () => {
 
   const PinCodeSendBTN = async (e) => {
     e.preventDefault();
-    const url = "https://localhost:9000/users/2/changeForgottenPassword";
+    const url = `https://localhost:9000/users/${userID}/changeForgottenPassword`;
 
     const res = await axios
       .post(url, {
