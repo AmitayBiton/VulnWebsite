@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Customers from "./Customers";
@@ -108,35 +108,39 @@ const SignIn = () => {
                   />
                 </div>
               </div>
-              <div
-                className="ui fluid large black submit button"
+              <button
+                disabled={username && password ? false : true}
+                className="ui fluid large black submit button forgot"
                 onClick={userLogin}
               >
                 Login
-              </div>
+              </button>
             </div>
-            <button
-              class="ui small button left"
-              onClick={(e) => forgotPasswordClick(e)}
-            >
-              <i class="icon user"></i>
-              Forgot your password?
-            </button>
-
-            <Link className="ui small button" to="/usersignup">
-              <i className="user plus icon"></i>
-              Add New User
-            </Link>
           </form>
 
           {/* <div class="ui message">
           New to us? <Link to="/signup">Sign Up</Link>
         </div> */}
-          {forgotPasswordClicked ? pinCodeInput() : ""}
-
+          {forgotPasswordClicked && username ? pinCodeInput() : ""}
           {loginTry && !isLogIn
             ? loginMessagge(`${username} unauthorized`)
             : ""}
+          <br />
+          <button
+            type="button"
+            title="click here"
+            disabled={username ? false : true}
+            class="ui small button left"
+            onClick={(e) => forgotPasswordClick(e)}
+          >
+            <i class="icon user"></i>
+            Forgot your password?
+          </button>
+
+          <Link className="ui small button" to="/usersignup">
+            <i className="user plus icon"></i>
+            Add New User
+          </Link>
         </div>
       </div>
     );
@@ -151,13 +155,11 @@ const SignIn = () => {
   };
 
   const onUserNameChange = (e) => {
-    // document.querySelector(".error")?.insertAdjacentHTML("beforeend", "");
     setLoginTry(false);
     setUserName(e.target.value);
   };
 
   const onPasswordChange = (e) => {
-    // document.querySelector(".error")?.insertAdjacentHTML("beforeend", "");
     setLoginTry(false);
     setPaswword(e.target.value);
   };
