@@ -1,45 +1,58 @@
 import react, { useState } from "react";
 import axios from "axios";
 import Customers from "./Customers";
+import SignIn from "./SignIn";
+import App from "../App";
+import { Link } from "react-router-dom";
 
 function CustomerSignUp() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
 
   const [addUser, setAddUser] = useState(false);
+  const [userCreated, setUserCreated] = useState(false);
+  const [signUpErr, setSignUpErr] = useState("");
 
   const addNewUserBtnClicked = async (e) => {
-    const url = "https://localhost:9000/customers/";
-
-    const res = await axios.post(url, {
-      lastName: lastName,
-      firstName: firstName,
-      emailAddress: mail,
-      phoneNumber: phone,
-      userName: userName,
-      password: password,
-    });
-    setFirstName("");
-    setLastName("");
-    setMail("");
-    setPhone("");
-    setPassword("");
-    setUserName("");
-
     setAddUser(true);
+    setUserCreated(false);
+    const url = "https://localhost:9000/customers";
+
+    const res = await axios
+      .post(url, {
+        lastName: lastName,
+        firstName: firstName,
+        emailAddress: mail,
+        phoneNumber: phone,
+      })
+      .catch((err) => {
+        console.log(lastName, firstName, mail, phone);
+        if (err.response.status !== 200) {
+          setUserCreated(false);
+          setSignUpErr(err.response.data);
+          return;
+        }
+      });
+
+    if (res && res.status === 200) {
+      setAddUser(false);
+      setUserCreated(true);
+      // setFirstName("");
+      // setLastName("");
+      // setMail("");
+      // setPhone("");
+      // setPassword("");
+      // setUserName("");
+      setSignUpErr(`Success!
+        <a className="active item" href="/">
+          Home
+        </a>
+        `);
+    }
   };
-  if (addUser) {
-    setAddUser(false);
-    return (
-      <div className="ui">
-        <Customers />
-      </div>
-    );
-  } else
+  if (!userCreated) {
     return (
       <div className="ui container segment">
         <form className="ui form">
@@ -75,7 +88,7 @@ function CustomerSignUp() {
               <div className="field">
                 <input
                   type="text"
-                  name="email"
+                  name="mail"
                   placeholder="Email"
                   value={mail}
                   onChange={(e) => setMail(e.target.value)}
@@ -93,30 +106,6 @@ function CustomerSignUp() {
             </div>
           </div>
 
-          <div className="field">
-            <label>Login Details</label>
-            <div className="two fields">
-              <div className="field">
-                <input
-                  type="text"
-                  name="userName"
-                  placeholder="User Name"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-              </div>
-              <div className="field">
-                <input
-                  type="text"
-                  name="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-
           <div
             className="ui button"
             tabIndex="0"
@@ -125,8 +114,20 @@ function CustomerSignUp() {
             Sign Up
           </div>
         </form>
+        <div
+          className="ui error message"
+          dangerouslySetInnerHTML={{ __html: signUpErr }}
+        ></div>
       </div>
     );
+  } else {
+    setUserCreated(false);
+    return (
+      <div className="ui">
+        <App />
+      </div>
+    );
+  }
 }
 
 export default CustomerSignUp;

@@ -5,9 +5,13 @@ import Customers from "./Customers";
 
 const SignIn = () => {
   const [username, setUserName] = useState("");
+  const [userID, setUserID] = useState("");
   const [password, setPaswword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [isLogIn, setisLogIn] = useState(false);
   const [loginTry, setLoginTry] = useState(false);
+  const [pinCode, setPinCode] = useState(false);
+  const [forgotPasswordClicked, setForgotPasswordClicked] = useState(false);
 
   const loginMessagge = (html) => {
     if (isLogIn) return;
@@ -19,8 +23,55 @@ const SignIn = () => {
     }, 3000);
   };
 
-  const loginPage = () => {
-    const html = `${username} unauthorized`;
+  const pinCodeInput = () => {
+    return (
+      <form class="ui fluid form">
+        <br />
+        <div class="field" placeholder="Last Name">
+          <div class="ui pointing below label">
+            If the username exist, a pin code sent to your mail, please enter it
+            and a new password below
+          </div>
+          <div
+            class="ui input focus"
+            onChange={(e) => setPinCode(e.target.value)}
+            value={pinCode}
+          >
+            <input type="text" placeholder="Pin code" />
+          </div>
+          <br />
+          <br />
+          <div
+            class="ui input focus"
+            onChange={(e) => setNewPassword(e.target.value)}
+            value={newPassword}
+          >
+            <input type="text" placeholder="New Password" type="password" />
+          </div>
+
+          <button class="ui icon button" onClick={(e) => PinCodeSendBTN(e)}>
+            Send
+          </button>
+        </div>
+      </form>
+    );
+  };
+
+  const PinCodeSendBTN = async (e) => {
+    e.preventDefault();
+    const url = `https://localhost:9000/users/${userID}/changeForgottenPassword`;
+
+    const res = await axios
+      .post(url, {
+        pincode: pinCode,
+        password: newPassword,
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const loginPage = (html) => {
     return (
       <div className="ui middle aligned center aligned grid stacked segment container">
         <div className="column">
@@ -69,11 +120,17 @@ const SignIn = () => {
               <i class="icon user"></i>
               Forgot your password?
             </button>
+
+            <Link className="ui small button" to="/usersignup">
+              <i className="user plus icon"></i>
+              Add New User
+            </Link>
           </form>
 
           {/* <div class="ui message">
           New to us? <Link to="/signup">Sign Up</Link>
         </div> */}
+          {forgotPasswordClicked ? pinCodeInput() : ""}
           <div className="ui error message">
             {loginTry && !isLogIn ? loginMessagge(html) : ""}
           </div>
@@ -102,10 +159,25 @@ const SignIn = () => {
     setPaswword(e.target.value);
   };
 
-  const forgotPasswordClick = (e) => {
+  const forgotPasswordClick = async (e) => {
     e.preventDefault();
-    console.log("forgot password");
-    return;
+    setForgotPasswordClicked(true);
+
+    let url = "https://localhost:9000/users";
+
+    const res = await axios.get(url).catch((err) => {
+      console.log(err);
+    });
+    if (!res) return;
+
+    const found = res?.data.find((element) => element.username === username);
+    if (!found) return;
+    setUserID(found.userID);
+    url = `https://localhost:9000/users/${found.userID}/forgetPassword`;
+
+    const res1 = await axios.post(url).catch((err) => {
+      console.log(err);
+    });
   };
 
   const userLogin = async (e) => {
@@ -130,7 +202,7 @@ const SignIn = () => {
           }
         });
 
-      if (res.status === 200 && res.data === "loggin Succeeded!") {
+      if (res.status === 200 && res.data === "login Succeeded!") {
         setisLogIn(true);
       }
     } catch (err) {
