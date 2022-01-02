@@ -13,14 +13,16 @@ const SignIn = () => {
   const [pinCode, setPinCode] = useState(false);
   const [forgotPasswordClicked, setForgotPasswordClicked] = useState(false);
 
-  const loginMessagge = (html) => {
-    if (isLogIn) return;
-    document.querySelector(".error").insertAdjacentHTML("beforeend", html);
-    setTimeout(() => {
-      const el = document.querySelector(".error");
-      if (!el) return;
-      el.innerHTML = "";
-    }, 3000);
+  const loginMessagge = (errMessage) => {
+    // return setTimeout(() => {
+    //   <div className="ui error message">bla bla bla</div>;
+    // }, 3000);
+    return (
+      <div
+        className="ui error message"
+        dangerouslySetInnerHTML={{ __html: errMessage }}
+      ></div>
+    );
   };
 
   const pinCodeInput = () => {
@@ -71,7 +73,7 @@ const SignIn = () => {
       });
   };
 
-  const loginPage = (html) => {
+  const loginPage = () => {
     return (
       <div className="ui middle aligned center aligned grid stacked segment container">
         <div className="column">
@@ -131,9 +133,10 @@ const SignIn = () => {
           New to us? <Link to="/signup">Sign Up</Link>
         </div> */}
           {forgotPasswordClicked ? pinCodeInput() : ""}
-          <div className="ui error message">
-            {loginTry && !isLogIn ? loginMessagge(html) : ""}
-          </div>
+
+          {loginTry && !isLogIn
+            ? loginMessagge(`${username} unauthorized`)
+            : ""}
         </div>
       </div>
     );
@@ -148,14 +151,14 @@ const SignIn = () => {
   };
 
   const onUserNameChange = (e) => {
+    // document.querySelector(".error")?.insertAdjacentHTML("beforeend", "");
     setLoginTry(false);
-    document.querySelector(".error").insertAdjacentHTML("beforeend", "");
     setUserName(e.target.value);
   };
 
   const onPasswordChange = (e) => {
+    // document.querySelector(".error")?.insertAdjacentHTML("beforeend", "");
     setLoginTry(false);
-    document.querySelector(".error").insertAdjacentHTML("beforeend", "");
     setPaswword(e.target.value);
   };
 
@@ -202,11 +205,13 @@ const SignIn = () => {
           }
         });
 
-      if (res.status === 200 && res.data === "login Succeeded!") {
+      if (res.status === 200 && res.data === "loggin Succeeded!") {
         setisLogIn(true);
+        setLoginTry(true);
       }
     } catch (err) {
       console.log(err);
+      setisLogIn(false);
     }
   };
 
