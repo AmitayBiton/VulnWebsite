@@ -37,7 +37,7 @@ const SignIn = () => {
     const found = res?.data.find((element) => element.username === username);
     console.log(found);
     if (!found) {
-      setChangePassErr('USER not found"');
+      setChangePassErr(`${username} not found`);
       return false;
     } else return true;
   };
@@ -96,6 +96,7 @@ const SignIn = () => {
         }
         setChangePassErr(err.response.data);
       });
+    setChangePassErr(`The password changed succeffuly`);
   };
 
   const loginPage = () => {
