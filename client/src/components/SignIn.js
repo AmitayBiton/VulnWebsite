@@ -12,6 +12,7 @@ const SignIn = () => {
   const [loginTry, setLoginTry] = useState(false);
   const [pinCode, setPinCode] = useState(false);
   const [forgotPasswordClicked, setForgotPasswordClicked] = useState(false);
+  const [changePassErr, setChangePassErr] = useState("");
 
   const loginMessagge = (errMessage) => {
     // return setTimeout(() => {
@@ -23,6 +24,22 @@ const SignIn = () => {
         dangerouslySetInnerHTML={{ __html: errMessage }}
       ></div>
     );
+  };
+
+  const findUserName = async () => {
+    let url = "https://localhost:9000/users";
+
+    const res = await axios.get(url).catch((err) => {
+      console.log(err);
+    });
+    if (!res) return false;
+
+    const found = res?.data.find((element) => element.username === username);
+    console.log(found);
+    if (!found) {
+      setChangePassErr('USER not found"');
+      return false;
+    } else return true;
   };
 
   const pinCodeInput = () => {
@@ -50,6 +67,9 @@ const SignIn = () => {
           >
             <input type="text" placeholder="New Password" type="password" />
           </div>
+          <div>
+            <br />
+          </div>
 
           <button class="ui icon button" onClick={(e) => PinCodeSendBTN(e)}>
             Send
@@ -70,6 +90,11 @@ const SignIn = () => {
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.status === 404) {
+          setChangePassErr(`${username} not found`);
+          return;
+        }
+        setChangePassErr(err.response.data);
       });
   };
 
@@ -121,11 +146,12 @@ const SignIn = () => {
           {/* <div class="ui message">
           New to us? <Link to="/signup">Sign Up</Link>
         </div> */}
-          {forgotPasswordClicked && username ? pinCodeInput() : ""}
+
           {loginTry && !isLogIn
             ? loginMessagge(`${username} unauthorized`)
             : ""}
           <br />
+
           <button
             type="button"
             title="click here"
@@ -141,6 +167,8 @@ const SignIn = () => {
             <i className="user plus icon"></i>
             Add New User
           </Link>
+          {forgotPasswordClicked && findUserName() ? pinCodeInput() : ""}
+          {loginMessagge(changePassErr)}
         </div>
       </div>
     );
@@ -172,6 +200,7 @@ const SignIn = () => {
 
     const res = await axios.get(url).catch((err) => {
       console.log(err);
+      setChangePassErr(err?.response?.data);
     });
     if (!res) return;
 
@@ -182,6 +211,7 @@ const SignIn = () => {
 
     const res1 = await axios.post(url).catch((err) => {
       console.log(err);
+      setChangePassErr(err?.response.data);
     });
   };
 
