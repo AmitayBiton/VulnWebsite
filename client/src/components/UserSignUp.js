@@ -34,7 +34,12 @@ function UserSignUp() {
         if (err?.response?.status !== 200) {
           setUserCreated(false);
           setSignUpErr(err?.response?.data);
-          return;
+          return (
+            <div
+              className="ui error message"
+              dangerouslySetInnerHTML={{ __html: signUpErr }}
+            ></div>
+          );
         }
       });
 
@@ -53,6 +58,15 @@ function UserSignUp() {
         </a>
         `);
     }
+  };
+
+  const showErr = () => {
+    return (
+      <div
+        className="ui error message"
+        dangerouslySetInnerHTML={{ __html: signUpErr }}
+      ></div>
+    );
   };
   if (!userCreated) {
     return (
@@ -129,10 +143,7 @@ function UserSignUp() {
             Sign Up
           </div>
         </form>
-        <div
-          className="ui error message"
-          dangerouslySetInnerHTML={{ __html: signUpErr }}
-        ></div>
+        {signUpErr ? showErr() : ""}
       </div>
     );
   } else {

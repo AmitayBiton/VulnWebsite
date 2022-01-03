@@ -29,17 +29,15 @@ const SignIn = () => {
   const findUserName = async () => {
     let url = "https://localhost:9000/users";
 
-    const res = await axios.get(url).catch((err) => {
-      console.log(err);
-    });
+    const res = await axios.get(url).catch((err) => {});
     if (!res) return false;
 
     const found = res?.data.find((element) => element.username === username);
-    console.log(found);
     if (!found) {
       setChangePassErr(`${username} not found`);
       return false;
-    } else return true;
+    }
+    return true;
   };
 
   const pinCodeInput = () => {
@@ -89,15 +87,22 @@ const SignIn = () => {
         pincode: pinCode,
         password: newPassword,
       })
+      .then(() => {
+        setPinCode("");
+        setChangePassErr(`The password changed succeffuly`);
+        setNewPassword("");
+        setTimeout(() => {
+          setForgotPasswordClicked(false);
+          setChangePassErr(``);
+        }, 3000);
+      })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.status);
         if (err.response.status === 404) {
           setChangePassErr(`${username} not found`);
-          return;
-        }
-        setChangePassErr(err.response.data);
+        } else setChangePassErr(err.response.data);
+        return;
       });
-    setChangePassErr(`The password changed succeffuly`);
   };
 
   const loginPage = () => {
@@ -169,8 +174,13 @@ const SignIn = () => {
             <i className="user plus icon"></i>
             Add New User
           </Link>
-          {forgotPasswordClicked && findUserName() ? pinCodeInput() : ""}
-          {loginMessagge(changePassErr)}
+          {forgotPasswordClicked && findUserName().then((t) => t)
+            ? pinCodeInput()
+            : ""}
+
+          {username && forgotPasswordClicked && changePassErr
+            ? loginMessagge(changePassErr)
+            : ""}
         </div>
       </div>
     );
@@ -187,6 +197,7 @@ const SignIn = () => {
   const onUserNameChange = (e) => {
     setLoginTry(false);
     setUserName(e.target.value);
+    setForgotPasswordClicked(false);
   };
 
   const onPasswordChange = (e) => {
@@ -214,7 +225,9 @@ const SignIn = () => {
     const res1 = await axios.post(url).catch((err) => {
       console.log(err);
       setChangePassErr(err?.response.data);
+      return true;
     });
+    return true;
   };
 
   const userLogin = async (e) => {
