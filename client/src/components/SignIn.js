@@ -36,8 +36,7 @@ const SignIn = () => {
     if (!found) {
       setChangePassErr(`${username} not found`);
       return false;
-    }
-    return true;
+    } else return true;
   };
 
   const pinCodeInput = () => {
@@ -47,8 +46,8 @@ const SignIn = () => {
         <br />
         <div class="field" placeholder="Last Name">
           <div class="ui pointing below label">
-            A pin code sent to your mail, please enter it and a new password
-            below
+            If the user name exist, A pin code sent to your mail, please enter
+            it and a new password below
           </div>
           <div
             class="ui input focus"
