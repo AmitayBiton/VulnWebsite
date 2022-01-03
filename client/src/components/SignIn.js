@@ -46,10 +46,11 @@ const SignIn = () => {
     return (
       <form class="ui fluid form">
         <br />
+        <br />
         <div class="field" placeholder="Last Name">
           <div class="ui pointing below label">
-            If the username exist, a pin code sent to your mail, please enter it
-            and a new password below
+            A pin code sent to your mail, please enter it and a new password
+            below
           </div>
           <div
             class="ui input focus"
