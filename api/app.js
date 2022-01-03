@@ -5,6 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
 var session = require("express-session");
+var mysqlStore = require('express-mysql-session');
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -12,10 +13,21 @@ var customersRouter = require("./routes/customers");
 var loginRouter = require("./routes/login");
 var registerRouter = require("./routes/register");
 var testAPIRouter = require("./routes/testAPI");
+const dbConfig = require("./config/db.config");
 
 var app = express();
 
 const oneDay = 1000 * 60 * 60 * 24;
+const dbOptions ={
+  connectionLimit: 10,
+  password: dbConfig.PASSWORD,
+  user: dbConfig.USER,
+  database: dbConfig.DB,
+  host: dbConfig.HOST,
+  port: dbConfig.PORT,
+  createDatabaseTable: true
+};
+const sessionStore = new mysqlStore(dbOptions);
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
@@ -36,6 +48,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(session({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized:true,
+    store: sessionStore,
     cookie: { maxAge: oneDay },
     resave: false 
 }));
