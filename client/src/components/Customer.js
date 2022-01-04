@@ -3,8 +3,8 @@ import React from "react";
 const Customer = (props) => {
   const html = props.firstName + " " + props.lastName;
   return (
-    <div className="four wide column">
-      <div className="ui card four wide column">
+    <div className="five wide column">
+      <div className="ui card ">
         <div className="content">
           <div
             className="header"
