@@ -18,6 +18,7 @@ router.post("/", (req, res) => {
       if (
         PWDTool.validatePassword(req.body.password, passwordHash, passwordSalt)
       ) {
+        req.session.IsLoggedin=true;
         res.status(200).send("loggin Succeeded!");
         //req.session.user=req.body.username;
         console.log(req.session);

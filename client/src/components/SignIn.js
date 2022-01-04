@@ -236,10 +236,16 @@ const SignIn = () => {
 
     try {
       const res = await axios
-        .post(url, {
-          username: username,
-          password: password,
-        })
+        .post(
+          url,
+          {
+            username: username,
+            password: password,
+          },
+          {
+            withCredentials: true,
+          }
+        )
         .catch((err) => {
           if (
             err.response.status === 401 ||

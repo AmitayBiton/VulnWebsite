@@ -29,14 +29,14 @@ module.exports = {
     requirementCount: 4
   }
 ```
-* create new file called 'pwdHistory.config.js'
+* create new file called '/api/config/pwdHistory.config.js'
 should look like:
 ```md
 module.exports = {
     history:4
 }
 ```
-* create new file called 'transporter.congif.js'
+* create new file called '/api/config/transporter.congif.js'
 should look like:
 ```md
 module.exports = {
@@ -93,8 +93,30 @@ inserting data to 'users' table:
          Database Initialization Completed!
 -----------------------------------------------------
 ``` 
+### 3. Create and install root certificate
 
-### 3. Starting the project
+* You can either install the current certificate authority in your local store or create a new one for youself.
+* You can read more about the project on the git page: https://github.com/FiloSottile/mkcert
+#### Create a new Certificate Authority:
+* Windows machine:
+```
+choco install mkcert
+```
+* Setup mkcert will create a new CA on your local machine:
+```
+mkcert -install
+```
+* Navigate to your local react-app folder and create a folder for the certificates:
+```
+mkdir certs
+```
+* Now run the following command:
+```
+mkcert -key-file ./certs/key.pem -cert-file ./certs/cert.pem "localhost"
+```
+##### Dont forget to install the Certificate Authority certificate in the local store, if using firefox it uses it's own store.
+
+### 4. Starting the project
 #### Server:
 * Navigate to /api and run the following command:
 ```md
@@ -108,7 +130,7 @@ $env:HTTPS = "true"
 ```
 * Linux/Mac machine:set environment varibale HTTPS with the value 'true', using bash terminal:
 ```md
-export HTTPS = ture
+export HTTPS = true
 ```
 
 * Run the following command:
