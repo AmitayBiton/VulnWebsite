@@ -1,10 +1,14 @@
 import React from "react";
 
 const Customer = (props) => {
+  const html = props.firstName + " " + props.lastName;
   return (
     <div className="ui card">
       <div className="content">
-        <div className="header">{props.firstName + " " + props.lastName}</div>
+        <div
+          className="header"
+          dangerouslySetInnerHTML={{ __html: html }}
+        ></div>
         <div className="meta">
           <span className="right floated time">{props.customerID}</span>
           <span className="category">{props.phoneNumber}</span>
