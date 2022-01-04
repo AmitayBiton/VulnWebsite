@@ -29,9 +29,7 @@ const Customers = () => {
     <div className="ui container">
       <h1 className="ui header">Customers</h1>
 
-      <div className="ui three column grid container">
-        <div className="column">{getAllCustomers}</div>
-      </div>
+      <div className="ui grid">{getAllCustomers}</div>
 
       <div>
         <br />
