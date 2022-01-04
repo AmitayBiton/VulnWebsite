@@ -52,6 +52,15 @@ function CustomerSignUp() {
         `);
     }
   };
+  const showErr = () => {
+    return (
+      <div
+        className="ui error message"
+        dangerouslySetInnerHTML={{ __html: signUpErr }}
+      ></div>
+    );
+  };
+
   if (!userCreated) {
     return (
       <div className="ui container segment">
@@ -114,17 +123,14 @@ function CustomerSignUp() {
             Sign Up
           </div>
         </form>
-        <div
-          className="ui error message"
-          dangerouslySetInnerHTML={{ __html: signUpErr }}
-        ></div>
+        {signUpErr ? showErr() : ""}
       </div>
     );
   } else {
     setUserCreated(false);
     return (
       <div className="ui">
-        <App />
+        <App omponent={<Customers />} />
       </div>
     );
   }

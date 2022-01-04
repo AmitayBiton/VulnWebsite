@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Customers from "./Customers";
@@ -12,6 +12,7 @@ const SignIn = () => {
   const [loginTry, setLoginTry] = useState(false);
   const [pinCode, setPinCode] = useState(false);
   const [forgotPasswordClicked, setForgotPasswordClicked] = useState(false);
+  const [changePassErr, setChangePassErr] = useState("");
 
   const loginMessagge = (errMessage) => {
     // return setTimeout(() => {
@@ -25,14 +26,28 @@ const SignIn = () => {
     );
   };
 
+  const findUserName = async () => {
+    let url = "https://localhost:9000/users";
+
+    const res = await axios.get(url).catch((err) => {});
+    if (!res) return false;
+
+    const found = res?.data.find((element) => element.username === username);
+    if (!found) {
+      setChangePassErr(`${username} not found`);
+      return false;
+    } else return true;
+  };
+
   const pinCodeInput = () => {
     return (
       <form class="ui fluid form">
         <br />
+        <br />
         <div class="field" placeholder="Last Name">
           <div class="ui pointing below label">
-            If the username exist, a pin code sent to your mail, please enter it
-            and a new password below
+            If the user name exist, A pin code sent to your mail, please enter
+            it and a new password below
           </div>
           <div
             class="ui input focus"
@@ -49,6 +64,9 @@ const SignIn = () => {
             value={newPassword}
           >
             <input type="text" placeholder="New Password" type="password" />
+          </div>
+          <div>
+            <br />
           </div>
 
           <button class="ui icon button" onClick={(e) => PinCodeSendBTN(e)}>
@@ -68,8 +86,21 @@ const SignIn = () => {
         pincode: pinCode,
         password: newPassword,
       })
+      .then(() => {
+        setPinCode("");
+        setChangePassErr(`The password changed succeffuly`);
+        setNewPassword("");
+        setTimeout(() => {
+          setForgotPasswordClicked(false);
+          setChangePassErr(``);
+        }, 3000);
+      })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.status);
+        if (err.response.status === 404) {
+          setChangePassErr(`${username} not found`);
+        } else setChangePassErr(err.response.data);
+        return;
       });
   };
 
@@ -108,34 +139,46 @@ const SignIn = () => {
                   />
                 </div>
               </div>
-              <div
-                className="ui fluid large black submit button"
+              <button
+                disabled={username && password ? false : true}
+                className="ui fluid large black submit button forgot"
                 onClick={userLogin}
               >
                 Login
-              </div>
+              </button>
             </div>
-            <button
-              className="ui small button left"
-              onClick={(e) => forgotPasswordClick(e)}
-            >
-              <i className="icon user"></i>
-              Forgot your password?
-            </button>
-
-            <Link className="ui small button" to="/usersignup">
-              <i className="user plus icon"></i>
-              Add New User
-            </Link>
           </form>
 
           {/* <div class="ui message">
           New to us? <Link to="/signup">Sign Up</Link>
         </div> */}
-          {forgotPasswordClicked ? pinCodeInput() : ""}
 
           {loginTry && !isLogIn
             ? loginMessagge(`${username} unauthorized`)
+            : ""}
+          <br />
+
+          <button
+            type="button"
+            title="click here"
+            disabled={username ? false : true}
+            class="ui small button left"
+            onClick={(e) => forgotPasswordClick(e)}
+          >
+            <i class="icon user"></i>
+            Forgot your password?
+          </button>
+
+          <Link className="ui small button" to="/usersignup">
+            <i className="user plus icon"></i>
+            Add New User
+          </Link>
+          {forgotPasswordClicked && findUserName().then((t) => t)
+            ? pinCodeInput()
+            : ""}
+
+          {username && forgotPasswordClicked && changePassErr
+            ? loginMessagge(changePassErr)
             : ""}
         </div>
       </div>
@@ -151,13 +194,12 @@ const SignIn = () => {
   };
 
   const onUserNameChange = (e) => {
-    // document.querySelector(".error")?.insertAdjacentHTML("beforeend", "");
     setLoginTry(false);
     setUserName(e.target.value);
+    setForgotPasswordClicked(false);
   };
 
   const onPasswordChange = (e) => {
-    // document.querySelector(".error")?.insertAdjacentHTML("beforeend", "");
     setLoginTry(false);
     setPaswword(e.target.value);
   };
@@ -170,6 +212,7 @@ const SignIn = () => {
 
     const res = await axios.get(url).catch((err) => {
       console.log(err);
+      setChangePassErr(err?.response?.data);
     });
     if (!res) return;
 
@@ -180,7 +223,10 @@ const SignIn = () => {
 
     const res1 = await axios.post(url).catch((err) => {
       console.log(err);
+      setChangePassErr(err?.response.data);
+      return true;
     });
+    return true;
   };
 
   const userLogin = async (e) => {
@@ -190,12 +236,16 @@ const SignIn = () => {
 
     try {
       const res = await axios
-        .post(url, {
-          username: username,
-          password: password,
-        }, {
-          withCredentials: true
-        })
+        .post(
+          url,
+          {
+            username: username,
+            password: password,
+          },
+          {
+            withCredentials: true,
+          }
+        )
         .catch((err) => {
           if (
             err.response.status === 401 ||

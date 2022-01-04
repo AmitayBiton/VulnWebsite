@@ -29,9 +29,7 @@ const Customers = () => {
     <div className="ui container">
       <h1 className="ui header">Customers</h1>
 
-      <div className="ui three column grid container">
-        <div className="column">{getAllCustomers}</div>
-      </div>
+      <div className="ui grid">{getAllCustomers}</div>
 
       <div>
         <br />
@@ -39,6 +37,11 @@ const Customers = () => {
           <i className="user plus icon"></i>
           Add New Customer
         </Link>
+
+        <a className="ui label large right" href="/">
+          <i className="sign out alternate icon"></i>
+          Sign Out
+        </a>
       </div>
       <div></div>
     </div>
