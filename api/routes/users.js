@@ -25,20 +25,26 @@ router.get('/:userId', function(req, res) {
 });
 
 router.post('/:userId/changePassword', function(req, res) {
-  var results = databaseConnection.query(`SELECT userName FROM users WHERE userID = '${req.params.userId}' LIMIT 1`)[0]
+  var results = databaseConnection.query(`SELECT userName,passwordHash,passwordSalt FROM users WHERE userID = '${req.params.userId}' LIMIT 1`)[0]
+  var passwordHash = results.passwordHash.toString()
+  var passwordSalt = results.passwordSalt.toString()
   if(results.length != 0){
-    username = results[0].userName
-    if(!PWDTool.isComplexed(req.body.password)){
-      res.status(400).send(`not complexed`)
-    }else if(!PWDTool.isPasswordUsed(username,req.body.password)){
-      res.status(400).send(`password been used already. password retention set to ${PWD_HISTORY_CONFIG.history}`)
+    if(PWDTool.validatePassword(req.body.oldPassword,passwordHash,passwordSalt)){
+      username = results.userName
+      if(!PWDTool.isComplexed(req.body.password)){
+        res.status(400).send(`not complexed`)
+      }else if(!PWDTool.isPasswordUsed(username,req.body.password)){
+        res.status(400).send(`password been used already. password retention set to ${PWD_HISTORY_CONFIG.history}`)
+      }else{
+        //all valid
+        PWDTool.changePassword(username,req.body.password)
+        res.status(200).send(`Password changed successfully!`)
+      }  
     }else{
-      //all valid
-      PWDTool.changePassword(username,req.body.password)
-      res.status(200).send(`Password changed successfully!`)
-    }  
+      res.status(403).send(`Incorrect password`);  
+    }
   }else{
-    res.status(404).send(`user not found`);  
+    res.status(404).send(`user not found`);
   } 
 });
 
