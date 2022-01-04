@@ -133,7 +133,7 @@ mkcert -key-file ./certs/key.pem -cert-file ./certs/cert.pem "localhost"
 npm start
 ```
 #### Client:
-* Navigate to /client:
+* Navigate to /client and run the following command:
 * Windows machine:
 ```md
 npm start
