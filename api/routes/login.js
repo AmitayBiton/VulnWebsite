@@ -6,6 +6,7 @@ var databaseConnection = require("../handlers/db");
 router.post("/", (req, res) => {
   if (req.body.username && req.body.password) {
     // console.log(req.session);
+    // aaaaa' ; DROP TABLE customers; -- 
     results = databaseConnection.query(
       `SELECT passwordHash,passwordSalt FROM users WHERE userName = '${req.body.username}'`
     );
