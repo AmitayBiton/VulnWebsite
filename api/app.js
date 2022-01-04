@@ -20,7 +20,7 @@ app.set("view engine", "jade");
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://localhost:3000",
   })
 );
 app.use(logger("dev"));
