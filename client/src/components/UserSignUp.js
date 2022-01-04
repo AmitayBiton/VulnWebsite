@@ -2,6 +2,8 @@ import react, { useState } from "react";
 import axios from "axios";
 import Customers from "./Customers";
 import SignIn from "./SignIn";
+import App from "../App";
+import { Link } from "react-router-dom";
 
 function UserSignUp() {
   const [firstName, setFirstName] = useState("");
@@ -12,10 +14,11 @@ function UserSignUp() {
 
   const [addUser, setAddUser] = useState(false);
   const [userCreated, setUserCreated] = useState(false);
-  const [signUpErr, setSignUpErr] = useState(false);
+  const [signUpErr, setSignUpErr] = useState("");
 
   const addNewUserBtnClicked = async (e) => {
     setAddUser(true);
+    setUserCreated(false);
     const url = "https://localhost:9000/register";
 
     const res = await axios
@@ -28,31 +31,30 @@ function UserSignUp() {
       })
       .catch((err) => {
         console.log(lastName, firstName, mail, userName, password);
-        if (err.response.status !== 200) {
+        if (err?.response?.status !== 200) {
           setUserCreated(false);
-          setSignUpErr(err.response.data);
+          setSignUpErr(err?.response?.data);
           return;
         }
       });
-    // setFirstName("");
-    // setLastName("");
-    // setMail("");
-    // setPhone("");
-    // setPassword("");
-    // setUserName("");
 
-    if (userCreated) {
-      setSignUpErr("Success");
+    if (res && res.status === 200) {
+      setAddUser(false);
+      setUserCreated(true);
+      // setFirstName("");
+      // setLastName("");
+      // setMail("");
+      // setPhone("");
+      // setPassword("");
+      // setUserName("");
+      setSignUpErr(`Success!
+        <a className="active item" href="/">
+          Home
+        </a>
+        `);
     }
   };
-  if (addUser) {
-    setAddUser(false);
-    return (
-      <div className="ui">
-        <SignIn />
-      </div>
-    );
-  } else
+  if (!userCreated) {
     return (
       <div className="ui container segment">
         <form className="ui form">
@@ -109,7 +111,7 @@ function UserSignUp() {
               </div>
               <div className="field">
                 <input
-                  type="text"
+                  type="password"
                   name="password"
                   placeholder="Password"
                   value={password}
@@ -127,9 +129,20 @@ function UserSignUp() {
             Sign Up
           </div>
         </form>
-        <div className="ui error message">'{signUpErr} '</div>
+        <div
+          className="ui error message"
+          dangerouslySetInnerHTML={{ __html: signUpErr }}
+        ></div>
       </div>
     );
+  } else {
+    setUserCreated(false);
+    return (
+      <div className="ui">
+        <App />
+      </div>
+    );
+  }
 }
 
 export default UserSignUp;

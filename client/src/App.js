@@ -1,12 +1,12 @@
 import Menu from "./components/Menu";
 import SignIn from "./components/SignIn";
 
-const App = () => {
+const App = ({ Component }) => {
   return (
     <div>
       <div>
         <Menu />
-        <SignIn />
+        {Component}
       </div>
     </div>
   );

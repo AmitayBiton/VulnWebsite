@@ -22,6 +22,9 @@ function Menu() {
         <Link className="active item" to="/">
           Home
         </Link>
+        <Link className="active item" to="/usersignup">
+          User Sign Up
+        </Link>
         {/* <Link className="item" to="/">
           Plans & prices{" "}
         </Link> */}
