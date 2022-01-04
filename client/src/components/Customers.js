@@ -37,6 +37,11 @@ const Customers = () => {
           <i className="user plus icon"></i>
           Add New Customer
         </Link>
+
+        <a className="ui label large right" href="/">
+          <i className="sign out alternate icon"></i>
+          Sign Out
+        </a>
       </div>
       <div></div>
     </div>
