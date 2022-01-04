@@ -1,7 +1,12 @@
 # VulnWebsite
 vulnerable website - cyber security course project
 ## Before you hack:
-### 1. Config files:
+### 1. Prerequiesits:
+* Make sure you have a fresh installation on mySQL on your machine
+* Create database on your machine called 'vulnwebsitedb'
+* Make sure you have chocho package manager installed on your machine
+
+### 2. Config files:
 * create /api/config direcory
 * create new file called '/api/config/db.config.js'
 should look like:
@@ -16,6 +21,8 @@ module.exports = {
   PORT: 3306
 };
 ```
+%%PASSWORD%% - your root password for your database ('vulnwebsitedb')
+
 * create new file called '/api/config/pwd.config.js'
 should look like:
 ```md
@@ -50,7 +57,7 @@ module.exports = {
 };
 ```
 
-### 2. Database initialization:
+### 3. Database initialization:
 * navigate to /api directory and run the following command:
 ```md
 npm run init
@@ -93,30 +100,33 @@ inserting data to 'users' table:
          Database Initialization Completed!
 -----------------------------------------------------
 ``` 
-### 3. Create and install root certificate
+### 4. Create and install root certificate
 
 * You can either install the current certificate authority in your local store or create a new one for youself.
 * You can read more about the project on the git page: https://github.com/FiloSottile/mkcert
 #### Create a new Certificate Authority:
 * Windows machine:
-```
+```md
 choco install mkcert
 ```
 * Setup mkcert will create a new CA on your local machine:
-```
+```md
 mkcert -install
 ```
-* Navigate to your local react-app folder and create a folder for the certificates:
-```
+* Navigate to client/ directory and create a folder for the certificates:
+```md
 mkdir certs
 ```
 * Now run the following command:
-```
+```md
 mkcert -key-file ./certs/key.pem -cert-file ./certs/cert.pem "localhost"
 ```
+* Copy client/certs directory to api/certs/
+
+
 ##### Dont forget to install the Certificate Authority certificate in the local store, if using firefox it uses it's own store.
 
-### 4. Starting the project
+### 5. Starting the project
 #### Server:
 * Navigate to /api and run the following command:
 ```md
@@ -124,16 +134,11 @@ npm start
 ```
 #### Client:
 * Navigate to /client:
-* Windows machine: set environment varibale HTTPS with the value 'true', using Powershell:
+* Windows machine:
 ```md
-$env:HTTPS = "true"
+npm start
 ```
 * Linux/Mac machine:set environment varibale HTTPS with the value 'true', using bash terminal:
 ```md
-export HTTPS = true
-```
-
-* Run the following command:
-```md
-npm start
+npm run start_mac
 ```
