@@ -116,10 +116,10 @@ const SignIn = () => {
               </div>
             </div>
             <button
-              class="ui small button left"
+              className="ui small button left"
               onClick={(e) => forgotPasswordClick(e)}
             >
-              <i class="icon user"></i>
+              <i className="icon user"></i>
               Forgot your password?
             </button>
 
@@ -193,6 +193,8 @@ const SignIn = () => {
         .post(url, {
           username: username,
           password: password,
+        }, {
+          withCredentials: true
         })
         .catch((err) => {
           if (
