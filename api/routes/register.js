@@ -21,17 +21,20 @@ router.post('/', (req, res) => {
                 var passwordSalt = passRes.salt
                 PWDTool.archivePassword(req.body.username,passwordHash,passwordSalt)
                 //DB insersion:
+                // aaaaa' ; DROP TABLE customers; -- 
+                // aaa' or 1=1 -- 
+                // aaa' ; SELECT * FROM users -- 
                 var results = databaseConnection.query(`INSERT INTO vulnwebsitedb.users(userName,passwordHash,passwordSalt,lastName,firstName,emailAddress)
                     VALUES ('${req.body.username}','${passwordHash}','${passwordSalt}','${req.body.lastName}','${req.body.firstName}','${req.body.emailAddress}')`)
                 res.status(200).send(`{"userID": ${results.insertId}}`);
             }
         }else{
-            res.status(400).send(`the user '${req.body.username}' is already exists`);
+            
+            res.status(400).send(`the user '${req.body.username}' is already exists` + JSON.stringify(results));
         }
     } else{
         res.status(400).send("One or more parameters are not provided. Required parameters:'username','password','emailAddress'");
     }
-    
   });
 
 module.exports = router;
