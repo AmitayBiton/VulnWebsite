@@ -63,7 +63,7 @@ const Customers = (params) => {
             onChange={(e) => setOldPassword(e.target.value)}
             value={oldPassword}
           >
-            <input type="text" placeholder="Old Password" />
+            <input type="password" placeholder="Old Password" />
           </div>
           <br />
           <br />
@@ -72,7 +72,7 @@ const Customers = (params) => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           >
-            <input type="text" placeholder="New Password" type="password" />
+            <input placeholder="New Password" type="password" />
           </div>
           <div>
             <br />
