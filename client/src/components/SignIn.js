@@ -188,7 +188,7 @@ const SignIn = () => {
   const CustomersPage = () => {
     return (
       <div className="ui">
-        <Customers />
+        <Customers userName={username} />
       </div>
     );
   };

@@ -3,10 +3,10 @@ import Customer from "./Customer";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Customers = () => {
+const Customers = (params) => {
   const [customers, setCustomers] = useState([]);
   const [changePasswordClicked, setChangePasswordClicked] = useState(false);
-  const [username, setUserName] = useState("");
+  const [username, setUserName] = useState(params.userName);
   const [userID, setUserID] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
@@ -26,9 +26,11 @@ const Customers = () => {
       console.log(err);
       setChangePassErr(err?.response?.data);
     });
+    console.log(res);
     if (!res) return;
 
     const found = res?.data.find((element) => element.username === username);
+    console.log(found);
     if (!found) return;
     setUserID(found.userID);
     url = `https://localhost:9000/users/${found.userID}/changePassword`;
