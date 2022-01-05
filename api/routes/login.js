@@ -1,9 +1,39 @@
 var express = require("express");
 const PWDTool = require("../vars/passwords");
+var ExpressBrute = require('express-brute');
 var router = express.Router();
 var databaseConnection = require("../handlers/db");
+var moment = require('moment');
 
-router.post("/", (req, res) => {
+var store = new ExpressBrute.MemoryStore();
+const failCallback = (req, res, next, nextValidRequestDate) => {
+  res.status(429).send("You've made too many failed attempts in a short period of time, please try again "+moment(nextValidRequestDate).fromNow());
+};
+const handleStoreError = (error) => {
+	log.error(error); 
+	throw {
+		message: error.message,
+		parent: error.parent
+	};
+};
+
+const userBruteForce = new ExpressBrute(store, {
+  freeRetries: 2,
+  attachResetToRequest: false,
+  refreshTimeoutOnRequest: false,
+  minWait: 5*60*1000,
+  maxWait: 5*60*1000,
+  lifetime: 5*60*1000,
+  failCallback: failCallback,
+  handleStoreError: handleStoreError
+});
+
+
+router.post("/", userBruteForce.getMiddleware({
+  key: (req,res, next) =>{
+    next(req.body.username);
+  }
+}) ,(req, res) => {
   if (req.body.username && req.body.password) {
     // console.log(req.session);
     // aaaaa' ; DROP TABLE customers; -- 
@@ -37,10 +67,9 @@ router.post("/", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  if (req.session.user) {
-    res.send({ loggedIn: true, user: req.session.user });
+  if (req.session.IsLoggedin) {
+    res.send({ loggedIn: true });
   } else {
-    console.log(req.session.user);
     res.send({ loggedIn: false });
   }
 });

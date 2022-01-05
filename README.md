@@ -1,8 +1,22 @@
-# VulnWebsite
-vulnerable website - cyber security course project
-## Before you hack:
-### 1. Config files:
-* create /api/config direcory
+# 💻📱📞 VulnWebsite 
+## vulnerable website - cyber security course project
+This project is a customer managemet web application and REST API for a communication company.
+By design, this application is vulnerable for SQLi attacks, XSS attacks and more. 😈😈
+
+Installaiton and configuration instructions are detailed below:
+
+
+## 🪓 Before you hack :
+### 1. 🧰 Prerequiesits: 
+* Make sure you have a fresh installation on mySQL on your machine.
+* Create database on your machine called 'vulnwebsitedb'.
+
+### 2. 🔧 Configuration files:
+* navigate to /api directory.
+* create /api/config direcory: 
+```md
+mkdir config
+```
 * create new file called '/api/config/db.config.js'
 should look like:
 
@@ -16,6 +30,8 @@ module.exports = {
   PORT: 3306
 };
 ```
+%%PASSWORD%% - your root password for your database ('vulnwebsitedb')
+
 * create new file called '/api/config/pwd.config.js'
 should look like:
 ```md
@@ -50,7 +66,19 @@ module.exports = {
 };
 ```
 
-### 2. Database initialization:
+
+### 3. 📦 Installing Requierments 
+* navigate to /api directory and run the following command:
+```md
+npm install
+```
+* navigate to /client directory and run the following command:
+```md
+npm install
+```
+
+
+### 4. 🗃️ Database initialization:
 * navigate to /api directory and run the following command:
 ```md
 npm run init
@@ -93,47 +121,54 @@ inserting data to 'users' table:
          Database Initialization Completed!
 -----------------------------------------------------
 ``` 
-### 3. Create and install root certificate
+### 5. 📜 Root and Server Certificates
 
 * You can either install the current certificate authority in your local store or create a new one for youself.
 * You can read more about the project on the git page: https://github.com/FiloSottile/mkcert
-#### Create a new Certificate Authority:
-* Windows machine:
-```
+
+#### Installing mkcert:
+##### 🪟 Windows machine:
+* use choco package manager to install mkcert
+```md
 choco install mkcert
 ```
+##### 🐧 Linux/Mac machine:
+* follow the instructions on https://github.com/FiloSottile/mkcert
+
+#### Create a new Certificate Authority:
 * Setup mkcert will create a new CA on your local machine:
-```
+```md
 mkcert -install
 ```
-* Navigate to your local react-app folder and create a folder for the certificates:
-```
+* Navigate to client/ directory and create a folder for the certificates:
+```md
 mkdir certs
 ```
 * Now run the following command:
-```
+```md
 mkcert -key-file ./certs/key.pem -cert-file ./certs/cert.pem "localhost"
 ```
+* Copy certs directory to api directory
+```md
+cp -R  ./certs ../api/
+```
+
+
 ##### Dont forget to install the Certificate Authority certificate in the local store, if using firefox it uses it's own store.
 
-### 4. Starting the project
+### 6. 🎯 Starting the project
 #### Server:
 * Navigate to /api and run the following command:
 ```md
 npm start
 ```
 #### Client:
-* Navigate to /client:
-* Windows machine: set environment varibale HTTPS with the value 'true', using Powershell:
-```md
-$env:HTTPS = "true"
-```
-* Linux/Mac machine:set environment varibale HTTPS with the value 'true', using bash terminal:
-```md
-export HTTPS = true
-```
-
-* Run the following command:
+* Navigate to /client and run the following command:
+* 🪟 Windows machine:
 ```md
 npm start
+```
+* 🐧 Linux/Mac machine:
+```md
+npm run start_mac
 ```

@@ -27,6 +27,19 @@ const SignIn = () => {
     );
   };
 
+  useEffect( () => {
+    let url = "https://localhost:9000/login";
+
+    axios.get(url,          {
+      withCredentials: true,
+    }).then((response) => {
+      if(response.data.loggedIn === true)
+      {
+        setisLogIn(true);
+      }
+    });
+  }, []);
+
   const findUserName = async () => {
     let url = "https://localhost:9000/users";
 
@@ -42,16 +55,16 @@ const SignIn = () => {
 
   const pinCodeInput = () => {
     return (
-      <form class="ui fluid form">
+      <form className="ui fluid form">
         <br />
         <br />
-        <div class="field" placeholder="Last Name">
-          <div class="ui pointing below label">
+        <div className="field" placeholder="Last Name">
+          <div className="ui pointing below label">
             If the user name exist, A pin code sent to your mail, please enter
             it and a new password below
           </div>
           <div
-            class="ui input focus"
+            className="ui input focus"
             onChange={(e) => setPinCode(e.target.value)}
             value={pinCode}
           >
@@ -60,7 +73,7 @@ const SignIn = () => {
           <br />
           <br />
           <div
-            class="ui input focus"
+            className="ui input focus"
             onChange={(e) => setNewPassword(e.target.value)}
             value={newPassword}
           >
@@ -70,7 +83,7 @@ const SignIn = () => {
             <br />
           </div>
 
-          <button class="ui icon button" onClick={(e) => PinCodeSendBTN(e)}>
+          <button className="ui icon button" onClick={(e) => PinCodeSendBTN(e)}>
             Send
           </button>
         </div>
@@ -167,10 +180,10 @@ const SignIn = () => {
             type="button"
             title="click here"
             disabled={username ? false : true}
-            class="ui small button left"
+            className="ui small button left"
             onClick={(e) => forgotPasswordClick(e)}
           >
-            <i class="icon user"></i>
+            <i className="icon user"></i>
             Forgot your password?
           </button>
 

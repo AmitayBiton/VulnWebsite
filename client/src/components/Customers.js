@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Customer from "./Customer";
-import { Link } from "react-router-dom";
+import SignIn from "./SignIn";
+import { Link,BrowserRouter as Router,Switch,Route } from "react-router-dom";
 import axios from "axios";
 
 const Customers = (params) => {
@@ -67,6 +68,18 @@ const Customers = (params) => {
       ></div>
     );
   };
+
+  const signOutUser = async (e) => {
+    let url = "https://localhost:9000/logout";
+
+    const res = await axios.get(url,{withCredentials: true}).catch((err) => {});
+    console.log(res);
+    if (!res) return false;
+      window.location.href='/'
+     return true;
+  };
+
+
 
   const pinCodeInput = () => {
     return (
@@ -142,10 +155,13 @@ const Customers = (params) => {
           <i className="user plus icon"></i>
           Add New Customer
         </Link>
-        <a className="ui label large right" href="/">
+        <button
+          className="ui button small"
+          onClick={signOutUser}
+        >
           <i className="sign out alternate icon"></i>
-          Sign Out
-        </a>
+                Sign Out
+        </button>
         <button
           className="ui button small "
           onClick={() =>
