@@ -9,8 +9,8 @@ const connection = new Mysql({
   user: dbConfig.USER,
   password: dbConfig.PASSWORD,
   database: dbConfig.DB,
-  multipleStatements: true,
-  port: 3306,
+  multipleStatements: dbConfig.MULTIPLESTATEMENT,
+  port: dbConfig.PORT,
 });
 console.log("Successfully connected to the database!");
 
