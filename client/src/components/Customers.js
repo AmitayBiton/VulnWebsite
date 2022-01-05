@@ -28,8 +28,9 @@ const Customers = (params) => {
       setChangePassErr(err?.response?.data);
     });
     console.log(res);
+    console.log("blabla");
     if (!res) return;
-
+    console.log(username);
     const found = res?.data.find((element) => element.username === username);
     console.log(found);
     if (!found) return;
