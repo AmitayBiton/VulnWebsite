@@ -21,6 +21,7 @@ router.post('/', (req, res) => {
                 var passwordSalt = passRes.salt
                 PWDTool.archivePassword(req.body.username,passwordHash,passwordSalt)
                 //DB insersion:
+                // in username field
                 // aaaaa' ; DROP TABLE customers; -- 
                 // aaa' or 1=1 -- 
                 // aaa' ; SELECT * FROM users -- 
