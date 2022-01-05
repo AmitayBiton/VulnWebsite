@@ -5,7 +5,7 @@ const transporter = nodemailer.createTransport(MAIL_CONFIG);
 
 exports.notify = (emailAddress,message,subject) => {
     var mailOptions = {
-        from: 'VulnNotifier@gmail.com',
+        from: MAIL_CONFIG.auth.user,
         to: emailAddress,
         subject: subject,
         text: message
