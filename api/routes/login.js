@@ -67,10 +67,9 @@ router.post("/", userBruteForce.getMiddleware({
 });
 
 router.get("/", (req, res) => {
-  if (req.session.user) {
-    res.send({ loggedIn: true, user: req.session.user });
+  if (req.session.IsLoggedin) {
+    res.send({ loggedIn: true });
   } else {
-    console.log(req.session.user);
     res.send({ loggedIn: false });
   }
 });
