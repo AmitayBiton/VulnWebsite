@@ -27,17 +27,18 @@ const SignIn = () => {
     );
   };
 
-  useEffect( () => {
+  useEffect(() => {
     let url = "https://localhost:9000/login";
 
-    axios.get(url,          {
-      withCredentials: true,
-    }).then((response) => {
-      if(response.data.loggedIn === true)
-      {
-        setisLogIn(true);
-      }
-    });
+    axios
+      .get(url, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.data.loggedIn === true) {
+          setisLogIn(true);
+        }
+      });
   }, []);
 
   const findUserName = async () => {
