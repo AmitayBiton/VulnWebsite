@@ -1,14 +1,19 @@
-# VulnWebsite
-vulnerable website - cyber security course project
-## Before you hack:
-### 1. Prerequiesits:
-* Make sure you have a fresh installation on mySQL on your machine
-* Create database on your machine called 'vulnwebsitedb'
-* Make sure you have chocho package manager installed on your machine
+# 💻📱📞 VulnWebsite 
+## vulnerable website - cyber security course project
+This project is a customer managemet web application and REST API for a communication company.
+By design, this application is vulnerable for SQLi attacks, XSS attacks and more. 😈😈
 
-### 2. Config files:
-* navigate to /api directory
-* create /api/config direcory
+Installaiton and configuration instructions are detailed below:
+
+## 🪓 Before you hack :
+### 1. 🧰 Prerequiesits: 
+* Make sure you have a fresh installation on mySQL on your machine.
+* Create database on your machine called 'vulnwebsitedb'.
+* Make sure you have chocho package manager installed on your machine.
+
+### 2. 🔧 Configuration files:
+* navigate to /api directory.
+* create /api/config direcory:
 ```md
 mkdir config
 ```
@@ -60,8 +65,16 @@ module.exports = {
   }
 };
 ```
-
-### 3. Database initialization:
+### 3. 📦 Installing Requierments 
+* navigate to /api directory and run the following command:
+```md
+npm install
+```
+* navigate to /client directory and run the following command:
+```md
+npm install
+```
+### 3. 🗃️ Database initialization:
 * navigate to /api directory and run the following command:
 ```md
 npm run init
@@ -104,7 +117,7 @@ inserting data to 'users' table:
          Database Initialization Completed!
 -----------------------------------------------------
 ``` 
-### 4. Create and install root certificate
+### 4. 📜 Root and Server Certificates
 
 * You can either install the current certificate authority in your local store or create a new one for youself.
 * You can read more about the project on the git page: https://github.com/FiloSottile/mkcert
