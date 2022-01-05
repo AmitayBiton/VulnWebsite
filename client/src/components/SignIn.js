@@ -34,6 +34,8 @@ const SignIn = () => {
     }).then((response) => {
       if(response.data.loggedIn === true)
       {
+        console.log(response.data.username);
+        setUserName(response.data.username);
         setisLogIn(true);
       }
     });
