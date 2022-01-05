@@ -7,7 +7,11 @@ vulnerable website - cyber security course project
 * Make sure you have chocho package manager installed on your machine
 
 ### 2. Config files:
+* navigate to /api directory
 * create /api/config direcory
+```md
+mkdir config
+```
 * create new file called '/api/config/db.config.js'
 should look like:
 
