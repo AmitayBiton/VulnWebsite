@@ -45,44 +45,69 @@ const Customers = (params) => {
         setChangePassErr(err?.response.data);
         return true;
       });
+
+    if (res.status === 200) {
+      // setChangePasswordClicked(false);
+      setChangePassErr("Success!");
+      setTimeout(() => {
+        setChangePasswordClicked(false);
+      }, 3000);
+    }
     return true;
+  };
+
+  const loginMessagge = (errMessage) => {
+    // return setTimeout(() => {
+    //   <div className="ui error message">bla bla bla</div>;
+    // }, 3000);
+    return (
+      <div
+        className="ui error message"
+        dangerouslySetInnerHTML={{ __html: errMessage }}
+      ></div>
+    );
   };
 
   const pinCodeInput = () => {
     return (
-      <form class="ui fluid form">
-        <br />
-        <br />
-        <div class="field" placeholder="Last Name">
-          {/* <div class="ui pointing below label">
+      <div>
+        <form class="ui fluid form">
+          <br />
+          <br />
+          <div class="field" placeholder="Last Name">
+            {/* <div class="ui pointing below label">
             If the user name exist, A pin code sent to your mail, please enter
             it and a new password below
           </div> */}
-          <div
-            class="ui input focus"
-            onChange={(e) => setOldPassword(e.target.value)}
-            value={oldPassword}
-          >
-            <input type="password" placeholder="Old Password" />
-          </div>
-          <br />
-          <br />
-          <div
-            class="ui input focus"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-          >
-            <input placeholder="New Password" type="password" />
-          </div>
-          <div>
+            <div
+              class="ui input focus"
+              onChange={(e) => setOldPassword(e.target.value)}
+              value={oldPassword}
+            >
+              <input type="password" placeholder="Old Password" />
+            </div>
             <br />
-          </div>
+            <br />
+            <div
+              class="ui input focus"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            >
+              <input placeholder="New Password" type="password" />
+            </div>
+            <div>
+              <br />
+            </div>
 
-          <button class="ui icon button" onClick={(e) => changePassword(e)}>
-            Send
-          </button>
-        </div>
-      </form>
+            <button class="ui icon button" onClick={(e) => changePassword(e)}>
+              Send
+            </button>
+          </div>
+        </form>
+        {changePasswordClicked && changePassErr
+          ? loginMessagge(changePassErr)
+          : ""}
+      </div>
     );
   };
 
