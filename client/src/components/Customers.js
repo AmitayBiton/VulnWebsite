@@ -27,8 +27,6 @@ const Customers = (params) => {
       console.log(err);
       setChangePassErr(err?.response?.data);
     });
-    console.log(res);
-    console.log("blabla");
     if (!res) return;
     console.log(username);
     const found = res?.data.find((element) => element.username === username);
@@ -48,7 +46,8 @@ const Customers = (params) => {
         return true;
       });
 
-    if (res.status === 200) {
+    if (res1.status === 200) {
+      console.log(res1);
       // setChangePasswordClicked(false);
       setChangePassErr("Success!");
       setTimeout(() => {
