@@ -148,7 +148,9 @@ const Customers = (params) => {
         </a>
         <button
           className="ui button small "
-          onClick={() => setChangePasswordClicked(true)}
+          onClick={() =>
+            setChangePasswordClicked(changePasswordClicked ? false : true)
+          }
         >
           <i className="user plus icon"></i>
           Change Password
