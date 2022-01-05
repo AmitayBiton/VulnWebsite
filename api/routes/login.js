@@ -52,7 +52,6 @@ router.post("/", userBruteForce.getMiddleware({
         req.session.IsLoggedin=true;
         res.status(200).send("loggin Succeeded!");
         //req.session.user=req.body.username;
-        console.log(req.session);
       } else {
         res.status(401).send("Incorrect Username or Password");
       }
@@ -67,7 +66,8 @@ router.post("/", userBruteForce.getMiddleware({
 });
 
 router.get("/", (req, res) => {
-  if (req.session.IsLoggedin) {
+  console.log(req.session.id);
+  if (req.session.IsLoggedin === true) {
     res.send({ loggedIn: true });
   } else {
     res.send({ loggedIn: false });
