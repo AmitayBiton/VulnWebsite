@@ -39,7 +39,9 @@ var corsOptions = {
 };
 
 app.use(
-  cors(corsOptions)
+  cors({
+    origin: "https://localhost:3000",
+  })
 );
 app.use(logger("dev"));
 app.use(express.json());
