@@ -50,6 +50,7 @@ router.post("/", userBruteForce.getMiddleware({
         PWDTool.validatePassword(req.body.password, passwordHash, passwordSalt)
       ) {
         req.session.IsLoggedin=true;
+        req.session.username=req.body.username;
         res.status(200).send("loggin Succeeded!");
         //req.session.user=req.body.username;
       } else {
@@ -68,7 +69,8 @@ router.post("/", userBruteForce.getMiddleware({
 router.get("/", (req, res) => {
   console.log(req.session.id);
   if (req.session.IsLoggedin === true) {
-    res.send({ loggedIn: true });
+    res.send({ loggedIn: true,
+                username: req.session.username });
   } else {
     res.send({ loggedIn: false });
   }
