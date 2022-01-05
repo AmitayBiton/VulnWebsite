@@ -10,8 +10,6 @@ Installaiton and configuration instructions are detailed below:
 ### 1. 🧰 Prerequiesits: 
 * Make sure you have a fresh installation on mySQL on your machine.
 * Create database on your machine called 'vulnwebsitedb'.
-* Make sure you have chocho package manager installed on your machine.
-
 
 ### 2. 🔧 Configuration files:
 * navigate to /api directory.
@@ -127,11 +125,17 @@ inserting data to 'users' table:
 
 * You can either install the current certificate authority in your local store or create a new one for youself.
 * You can read more about the project on the git page: https://github.com/FiloSottile/mkcert
-#### Create a new Certificate Authority:
-* Windows machine:
+
+#### Installing mkcert:
+##### 🪟 Windows machine:
+* use choco package manager to install mkcert
 ```md
 choco install mkcert
 ```
+##### 🐧 Linux/Mac machine:
+* follow the instructions on https://github.com/FiloSottile/mkcert
+
+#### Create a new Certificate Authority:
 * Setup mkcert will create a new CA on your local machine:
 ```md
 mkcert -install
