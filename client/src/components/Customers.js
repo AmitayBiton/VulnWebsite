@@ -3,8 +3,113 @@ import Customer from "./Customer";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Customers = () => {
+const Customers = (params) => {
   const [customers, setCustomers] = useState([]);
+  const [changePasswordClicked, setChangePasswordClicked] = useState(false);
+  const [username, setUserName] = useState(params.userName);
+  const [userID, setUserID] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [changePassErr, setChangePassErr] = useState("");
+  const [isLogIn, setisLogIn] = useState(false);
+  const [loginTry, setLoginTry] = useState(false);
+  const [pinCode, setPinCode] = useState(false);
+  const [forgotPasswordClicked, setForgotPasswordClicked] = useState(false);
+
+  const changePassword = async (e) => {
+    e.preventDefault();
+    setChangePasswordClicked(true);
+
+    let url = "https://localhost:9000/users";
+
+    const res = await axios.get(url).catch((err) => {
+      console.log(err);
+      setChangePassErr(err?.response?.data);
+    });
+    console.log(res);
+    if (!res) return;
+
+    const found = res?.data.find((element) => element.username === username);
+    console.log(found);
+    if (!found) return;
+    setUserID(found.userID);
+    url = `https://localhost:9000/users/${found.userID}/changePassword`;
+
+    const res1 = await axios
+      .post(url, {
+        oldPassword: oldPassword,
+        password: password,
+      })
+      .catch((err) => {
+        console.log(err);
+        setChangePassErr(err?.response.data);
+        return true;
+      });
+
+    if (res.status === 200) {
+      // setChangePasswordClicked(false);
+      setChangePassErr("Success!");
+      setTimeout(() => {
+        setChangePasswordClicked(false);
+      }, 3000);
+    }
+    return true;
+  };
+
+  const loginMessagge = (errMessage) => {
+    // return setTimeout(() => {
+    //   <div className="ui error message">bla bla bla</div>;
+    // }, 3000);
+    return (
+      <div
+        className="ui error message"
+        dangerouslySetInnerHTML={{ __html: errMessage }}
+      ></div>
+    );
+  };
+
+  const pinCodeInput = () => {
+    return (
+      <div>
+        <form class="ui fluid form">
+          <br />
+          <br />
+          <div class="field" placeholder="Last Name">
+            {/* <div class="ui pointing below label">
+            If the user name exist, A pin code sent to your mail, please enter
+            it and a new password below
+          </div> */}
+            <div
+              class="ui input focus"
+              onChange={(e) => setOldPassword(e.target.value)}
+              value={oldPassword}
+            >
+              <input type="password" placeholder="Old Password" />
+            </div>
+            <br />
+            <br />
+            <div
+              class="ui input focus"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            >
+              <input placeholder="New Password" type="password" />
+            </div>
+            <div>
+              <br />
+            </div>
+
+            <button class="ui icon button" onClick={(e) => changePassword(e)}>
+              Send
+            </button>
+          </div>
+        </form>
+        {changePasswordClicked && changePassErr
+          ? loginMessagge(changePassErr)
+          : ""}
+      </div>
+    );
+  };
 
   useEffect(async () => {
     const url = "https://localhost:9000/customers";
@@ -37,12 +142,19 @@ const Customers = () => {
           <i className="user plus icon"></i>
           Add New Customer
         </Link>
-
         <a className="ui label large right" href="/">
           <i className="sign out alternate icon"></i>
           Sign Out
         </a>
+        <button
+          className="ui button small "
+          onClick={() => setChangePasswordClicked(true)}
+        >
+          <i className="user plus icon"></i>
+          Change Password
+        </button>
       </div>
+      {changePasswordClicked ? pinCodeInput() : ""}
       <div></div>
     </div>
   );
