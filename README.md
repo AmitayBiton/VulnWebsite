@@ -122,7 +122,7 @@ mkdir certs
 mkcert -key-file ./certs/key.pem -cert-file ./certs/cert.pem "localhost"
 ```
 * Copy certs directory to api directory
-* ```md
+```md
 cp -R  ./certs ../api/
 ```
 
