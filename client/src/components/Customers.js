@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Customer from "./Customer";
 import SignIn from "./SignIn";
-import { Link,BrowserRouter as Router,Switch,Route } from "react-router-dom";
+import { Link, BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from "axios";
 
 const Customers = (params) => {
@@ -27,9 +27,8 @@ const Customers = (params) => {
       console.log(err);
       setChangePassErr(err?.response?.data);
     });
-    console.log(res);
     if (!res) return;
-
+    console.log(username);
     const found = res?.data.find((element) => element.username === username);
     console.log(found);
     if (!found) return;
@@ -47,7 +46,8 @@ const Customers = (params) => {
         return true;
       });
 
-    if (res.status === 200) {
+    if (res1.status === 200) {
+      console.log(res1);
       // setChangePasswordClicked(false);
       setChangePassErr("Success!");
       setTimeout(() => {
@@ -72,14 +72,14 @@ const Customers = (params) => {
   const signOutUser = async (e) => {
     let url = "https://localhost:9000/logout";
 
-    const res = await axios.get(url,{withCredentials: true}).catch((err) => {});
+    const res = await axios
+      .get(url, { withCredentials: true })
+      .catch((err) => {});
     console.log(res);
     if (!res) return false;
-      window.location.href='/'
-     return true;
+    window.location.href = "/";
+    return true;
   };
-
-
 
   const pinCodeInput = () => {
     return (
@@ -88,10 +88,6 @@ const Customers = (params) => {
           <br />
           <br />
           <div class="field" placeholder="Last Name">
-            {/* <div class="ui pointing below label">
-            If the user name exist, A pin code sent to your mail, please enter
-            it and a new password below
-          </div> */}
             <div
               class="ui input focus"
               onChange={(e) => setOldPassword(e.target.value)}
@@ -155,16 +151,15 @@ const Customers = (params) => {
           <i className="user plus icon"></i>
           Add New Customer
         </Link>
-        <button
-          className="ui button small"
-          onClick={signOutUser}
-        >
+        <button className="ui button small" onClick={signOutUser}>
           <i className="sign out alternate icon"></i>
-                Sign Out
+          Sign Out
         </button>
         <button
           className="ui button small "
-          onClick={() => setChangePasswordClicked(true)}
+          onClick={() =>
+            setChangePasswordClicked(changePasswordClicked ? false : true)
+          }
         >
           <i className="user plus icon"></i>
           Change Password

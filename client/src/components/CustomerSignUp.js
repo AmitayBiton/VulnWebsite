@@ -130,7 +130,7 @@ function CustomerSignUp() {
     setUserCreated(false);
     return (
       <div className="ui">
-        <App omponent={<Customers />} />
+        <App Component={<Customers />} />
       </div>
     );
   }
