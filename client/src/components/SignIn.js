@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Customers from "./Customers";
+import App from "../App";
 
 const SignIn = () => {
   const [username, setUserName] = useState("");
@@ -26,19 +27,20 @@ const SignIn = () => {
     );
   };
 
-  useEffect( () => {
+  useEffect(() => {
     let url = "https://localhost:9000/login";
 
-    axios.get(url,          {
-      withCredentials: true,
-    }).then((response) => {
-      if(response.data.loggedIn === true)
-      {
-        console.log(response.data.username);
-        setUserName(response.data.username);
-        setisLogIn(true);
-      }
-    });
+    axios
+      .get(url, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.data.loggedIn === true) {
+          console.log(response.data.username);
+          setUserName(response.data.username);
+          setisLogIn(true);
+        }
+      });
   }, []);
 
   const findUserName = async () => {
@@ -120,6 +122,10 @@ const SignIn = () => {
   };
 
   const loginPage = () => {
+    // const isLoggedIn = localStorage.getItem("isLoggedin");
+    // if (isLoggedIn) {
+    //   return <App Component={<Customers />} />;
+    // } else
     return (
       <div className="ui middle aligned center aligned grid stacked segment container">
         <div className="column">
@@ -247,6 +253,12 @@ const SignIn = () => {
   const userLogin = async (e) => {
     e.preventDefault();
     setLoginTry(true);
+
+    // localStorage.setItem("isLoggedin", true);
+    // setTimeout(() => {
+    //   localStorage.setItem("isLoggedin", false);
+    // }, 20000);
+
     const url = "https://localhost:9000/login/";
 
     try {
