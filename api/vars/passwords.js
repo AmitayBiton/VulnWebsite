@@ -1,9 +1,9 @@
 const crypto = require("crypto");
 var databaseConnection = require("../handlers/db");
-const passwordComplexity = require("joi-password-complexity");
+//const passwordComplexity = require("joi-password-complexity");
 const PWD_CONFIG = require("../config/pwd.config");
 const PWD_HISTORY_CONFIG = require("../config/pwdHistory.config");
-
+const passwordDictionary = require("secure-password-validator");
 
 exports.calculateHmacAndSalt = (password) => {
     //salt
@@ -50,11 +50,10 @@ exports.isPasswordUsed = (username,password) => {
 }
 
 exports.isComplexed = (password) => {
-    var passwordValidation = passwordComplexity(PWD_CONFIG).validate(password)
+    var passwordValidation = passwordDictionary.validate(password,PWD_CONFIG);
     if(passwordValidation.hasOwnProperty('error')) return false
     else return true    
 }
-
 
 exports.isPendingPasswordReset = (username) => {
     var results = databaseConnection.query(`SELECT userName FROM forgetPassword WHERE userName = '${username}'`)

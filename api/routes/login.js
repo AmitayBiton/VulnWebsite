@@ -1,5 +1,6 @@
 var express = require("express");
 const PWDTool = require("../vars/passwords");
+const PWDConf = require("../config/pwdHistory.config");
 var ExpressBrute = require('express-brute');
 var router = express.Router();
 var databaseConnection = require("../handlers/db");
@@ -18,7 +19,7 @@ const handleStoreError = (error) => {
 };
 
 const userBruteForce = new ExpressBrute(store, {
-  freeRetries: 2,
+  freeRetries: PWDConf.retries,
   attachResetToRequest: false,
   refreshTimeoutOnRequest: false,
   minWait: 5*60*1000,

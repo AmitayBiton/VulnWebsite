@@ -1,7 +1,7 @@
 const express = require('express');
 var router = express.Router();
 var databaseConnection = require("../handlers/db");
-const passwordComplexity = require("joi-password-complexity");
+const passwordDictionary = require("secure-password-validator");
 const PWD_CONFIG = require("../config/pwd.config");
 const PWDTool = require("../vars/passwords");
 
@@ -11,9 +11,10 @@ router.post('/', (req, res) => {
         results = databaseConnection.query(`SELECT userName FROM users WHERE userName = '${req.body.username}'`)
         if(results.length == 0){
             // password validation:
-            var passwordValidation = passwordComplexity(PWD_CONFIG).validate(req.body.password)
-            if(passwordValidation.hasOwnProperty('error')){
-                var validationMessage = passwordValidation.error.details[0].message
+            var passwordValidation = passwordDictionary.validate(req.body.password,PWD_CONFIG)
+            if(passwordValidation.valid === false){
+                console.log(passwordValidation.errors[0])
+                var validationMessage = passwordValidation.errors
                 res.status(400).send(`ValidationErr: ${validationMessage}`)
             }else{
                 var passRes = PWDTool.calculateHmacAndSalt(req.body.password)
