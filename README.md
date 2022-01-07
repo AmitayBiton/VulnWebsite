@@ -36,13 +36,13 @@ module.exports = {
 should look like:
 ```md
 module.exports = {
-    min: 8,
-    max: 26,
-    lowerCase: 1,
-    upperCase: 1,
-    numeric: 1,
-    symbol: 1,
-    requirementCount: 4
+    minLength: 8,
+    maxLength: 50,
+    blackList: ["Aa12345^","Bb12345^"],
+    digits: true,
+    uppercase: true,
+    lowercase: true,
+    symbols: true
   }
 ```
 * create new file called '/api/config/pwdHistory.config.js'
